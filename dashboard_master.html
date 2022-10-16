@@ -1,0 +1,4118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Painel</title>
+
+<meta property="og:title" content="Painel" />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="dashboard_master_files/figures\favicon.PNG">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
+<script id="flexdashboard-navbar" type="application/json">
+[{"title":"UEPF/SAOR/SEFAZ","href":"http://www5.sefaz.mt.gov.br/-/14586954-boletim-fiscal","align":"right"},{"icon":"fa-share-alt","items":[{"title":"Twitter","icon":"fa-twitter"},{"title":"Facebook","icon":"fa-facebook"},{"title":"Google+","icon":"fa-google-plus"},{"title":"LinkedIn","icon":"fa-linkedin"},{"title":"Pinterest","icon":"fa-pinterest"}]},{"title":"Source Code","icon":"fa-code","href":"source_embed","align":"right"}]
+</script>
+<style type="text/css">
+
+/*
+ Dashboard CSS from Keen IO Dashboards
+ (https://github.com/keen/dashboards)
+*/
+
+body {
+  background: #f2f2f2;
+  padding: 60px 0 0 8px; /* padding-top overridden by theme */
+}
+
+body hr {
+  border-color: #d7d7d7;
+  margin: 10px 0;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.navbar .navbar-brand {
+  text-decoration: none;
+}
+
+.navbar-logo {
+  margin-top: 1px;
+}
+
+.navbar-logo img {
+  margin-right: 12px;
+}
+
+.navbar-author {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.navbar .dropdown-menu .fa {
+  min-width: 20px;
+}
+
+.navbar .dropdown-menu {
+  min-width: 150px;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.chart-wrapper,
+.nav-tabs-custom,
+.sbframe-commentary
+{
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.chart-title {
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 7px 10px 4px;
+}
+
+.chart-wrapper .chart-title:empty {
+  display: none;
+}
+
+.chart-wrapper .chart-stage {
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.chart-wrapper .chart-notes {
+  background: #fbfbfb;
+  border-top: 1px solid #e2e2e2;
+  color: #808080;
+  font-size: 12px;
+  padding: 8px 10px 5px;
+}
+
+/*
+ CSS for handling flexbox layout
+*/
+
+#dashboard-container {
+  visibility: hidden;
+}
+
+.tab-content>.dashboard-page-wrapper.active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dashboard-page-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-row-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.dashboard-column-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-column {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-wrapper-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-stage-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative;
+}
+
+.chart-shim {
+  position: absolute;
+  left: 8px; top: 8px; right: 8px; bottom: 8px;
+}
+
+.no-padding .chart-shim {
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.flowing-content-shim {
+  overflow: auto;
+  left: 0; top: 0; right: 0; bottom: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.flowing-content-container {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.chart-stage .table-bordered {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > th,
+.chart-stage .table-bordered > tfoot > tr > th,
+.chart-stage .table-bordered > tbody > tr > td,
+.chart-stage .table-bordered > tfoot > tr > td {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > td {
+  border-top: 1px solid #dddddd;
+}
+
+.chart-stage .table-bordered > thead > tr > th {
+  border: none;
+  border-bottom: 2px solid #dddddd;
+}
+
+.bootstrap-table table>thead {
+  background-color: #fff;
+}
+
+.bootstrap-table table.data,
+.bootstrap-table table.shiny-table {
+  width: inherit !important;
+}
+
+.bootstrap-table table.data>tbody>tr>th,
+.bootstrap-table table.shiny-table>tbody>tr>th {
+  border-top: none;
+  border-bottom: 2px solid #dddddd;
+  padding: 5px;
+}
+
+.bootstrap-table .data td[align=right] {
+  font-family: inherit;
+}
+
+.chart-wrapper form {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.shiny-input-container label {
+  font-weight: normal;
+}
+
+.chart-stage .html-widget {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .html-widget-static-bound {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .shiny-bound-output {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Omit display of empty paragraphs */
+
+.chart-shim>p:empty {
+  display: none;
+}
+
+.chart-stage>p:empty {
+  display: none;
+}
+
+/* Omit display of special knitr options div*/
+
+.chart-stage .knitr-options {
+  display: none;
+}
+
+/* Automatically resizing images */
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+.image-container img {
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Value box */
+
+.value-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.value-box > .inner {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.value-box .value {
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.value-box .caption {
+  font-size: 15px;
+}
+.value-box .caption > small {
+  display: block;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.value-box .icon i {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 80px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.linked-value:hover {
+  cursor: pointer;
+}
+
+.value-box.linked-value:hover {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* STORYBOARD */
+
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
+  outline: none;
+  padding: 0;
+}
+
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
+
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
+}
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
+  font-size: 50px;
+}
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
+}
+
+.storyboard-nav .sbnext {
+  float: right;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
+}
+
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  color: #3a3c47;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  color: #fff;
+  background: #B8B8B8;
+}
+
+.sbframe-commentary {
+  width: 300px;
+  background: #fbfbfb;
+  font-size: 14px;
+}
+
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
+  display: none;
+}
+
+/* NAV TABS */
+
+.nav-tabs-custom > .nav-tabs {
+  margin: 0;
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.nav-tabs-custom > .nav-tabs > li {
+  border-top: 3px solid transparent;
+  margin-bottom: -1px;
+  margin-right: 5px;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  color: #666;
+  font-weight: 300;
+  font-size: 14px;
+  border-radius: 0;
+  padding: 3px 10px 5px;
+  text-transform: none;
+}
+
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
+  border-bottom-color: transparent;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a.text-muted {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  background: transparent;
+  margin: 0;
+}
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
+  border-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #3c8dbc;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li.active:hover > a {
+  background-color: #fff;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a {
+  border-top-color: transparent;
+  border-left-color: #d7d7d7;
+  border-right-color: #d7d7d7;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type {
+  margin-left: 0;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
+  border-left-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs.pull-right {
+  float: none !important;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li {
+  float: right;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
+  margin-right: 0;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
+  border-left-width: 1px;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
+  border-left-color: #d7d7d7;
+  border-right-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.header {
+  line-height: 35px;
+  padding: 0 10px;
+  font-size: 20px;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.header > .fa,
+.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
+.nav-tabs-custom > .nav-tabs > li.header > .ion {
+  margin-right: 5px;
+}
+.nav-tabs-custom > .tab-content {
+  background: #fff;
+  padding: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom > .tab-content > .chart-wrapper {
+  background: #fff;
+  border: none;
+  margin: 0;
+}
+
+
+.nav-tabs-custom > .tab-content > .active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom .dropdown.open > a:active,
+.nav-tabs-custom .dropdown.open > a:focus {
+  background: transparent;
+  color: #999;
+}
+
+
+@media (max-width: 767px) {
+  .value-box {
+    text-align: center;
+    margin-right: 8px;
+  }
+  .value-box .icon {
+    display: none;
+  }
+}
+
+/* Fixed position sidebar */
+
+.section.sidebar {
+  position: fixed;
+  top: 51px; /* overridden by theme */
+  left: 0;
+  bottom: 0;
+  border-right: 1px solid #e2e2e2;
+  background-color: white; /* overridden by theme */
+  padding-left: 10px;
+  padding-right: 10px;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.section.sidebar form p:first-child {
+  margin-top: 10px;
+}
+
+/* Embedded source code */
+
+#flexdashboard-source-code {
+  display: none;
+}
+
+.featherlight-content #flexdashboard-source-code {
+  display: inline-block;
+}
+
+.featherlight-content {
+  width: 80%;
+  max-width: 800px;
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.featherlight:last-of-type {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.featherlight-inner {
+  width: 100%;
+}
+
+.featherlight-content pre {
+  margin: 0;
+  border: 0;
+  background: #fff;
+  font-size: 12px;
+}
+
+.unselectable {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#flexdashboard-source-code code {
+  -ms-user-select: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+
+/* DataTables Tweaks */
+
+.dataTables_filter input[type="search"] {
+  -webkit-appearance: searchfield;
+  outline: none;
+}
+
+.dataTables_wrapper.no-footer
+.dataTables_info {
+  padding-top: 0;
+}
+
+
+table.dataTable thead th {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+/* Mobile phone only CSS */
+
+.desktop-layout div.section.mobile {
+  display: none;
+}
+
+.mobile-layout div.section.no-mobile {
+  display: none;
+}
+
+.mobile-figure {
+  display: none;
+}
+
+
+
+body {
+  padding-top: 60px;
+}
+
+.section.sidebar {
+  top: 51px;
+  background-color: rgba(39, 128, 227, 0.1);
+}
+
+.value-box {
+  color: #f9f9f9;
+}
+
+.bg-primary {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: rgba(39, 128, 227, 0.7);
+}
+
+.bg-info {
+  background-color: rgba(153, 84, 187, 0.7);
+}
+
+.bg-warning {
+  background-color: rgba(255, 117, 24, 0.7);
+}
+
+.bg-danger {
+  background-color: rgba(255, 0, 57, 0.7);
+}
+
+.bg-success {
+  background-color: rgba(63, 182, 24, 0.7);
+}
+
+.chart-title {
+  font-weight: 500;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  font-weight: 500;
+}
+
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
+}
+
+#dashboard-container {
+  height: 100%;
+}
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+
+<span class="navbar-logo pull-left">
+  <img src="dashboard_master_files/figures\logo.png" class="navbar-logo"/>
+</span>
+<span class="navbar-brand">
+  Painel
+  <span class="navbar-author">
+        </span>
+</span>
+
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<script type="text/javascript">
+
+
+var FlexDashboard = (function () {
+
+  // initialize options
+  var _options = {};
+
+  var FlexDashboard = function() {
+
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false,
+      resize_reload: true
+    });
+  };
+
+  function init(options) {
+
+    // extend default options
+    $.extend(true, _options, options);
+
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.append(h1.contents());
+        h3.insertBefore(h1);
+        h1.detach();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if resize_reload is set to true and it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    if (_options.resize_reload) {
+      $(window).on('resize', function() {
+        if (_options.isMobile !== isMobilePhone() ||
+            _options.isPortrait !== isPortrait()) {
+          window.location.reload();
+        }
+      });
+    } else {
+      // if in desktop mode and resizing to mobile, make sure the heights are 100%
+      // This enforces what `fillpage.css` does for "wider" pages.
+      // Since we are not reloading once the page becomes small, we need to force the height to 100%
+      // This is a new situation introduced when `_options.resize_reload` is `false`
+      if (! _options.isMobile) {
+        // only add if `fillpage.css` was added in the first place
+        if (_options.fillPage) {
+          // fillpage.css
+          $("html,body,#dashboard").css("height", "100%");
+        }
+      }
+    }
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
+  }
+
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
+
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+    if (active)
+      wrapper.addClass('active');
+
+    // get a reference to the h1, discover its inner contens, then detach it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.contents();
+    h1.detach();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, null, navmenu, container);
+      menu.append(li);
+    } else {
+      container.append(li);
+    }
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = null;
+      var iconSplit = icon.split(" ");
+      if (iconSplit.length > 1) {
+        iconSet = iconSplit[0];
+        icon = iconSplit.slice(1).join(" ");
+      } else {
+        iconSet = icon.substring(0, dashPos);
+      }
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
+      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.append(h2.contents());
+      h3.insertBefore(h2);
+      h2.detach();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.append(h3.contents());
+      h3.detach();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.append(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var navClass = "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingDom = heading.contents();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab"></a>');
+      a.append(headingDom);
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation"></li>');
+      li.append(a);
+      if (i === 0)
+        li.attr('class', 'active');
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+      if (i === 0) {
+        tab.addClass('active');
+        if (fade)
+          tab.addClass('in');
+      }
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.contents();
+    h3.detach();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.empty().append(blockquote.children('p:first-child').contents());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.empty().append(caption.contents());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.decodeURIComponent(window.location.hash);
+    if (hash.length > 0)
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    FlexDashboardUtils.manageActiveNavbarMenu();
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.decodeURIComponent(window.location.hash);
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        $('ul.nav a:first').tab('show');
+      }
+      FlexDashboardUtils.manageActiveNavbarMenu();
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+
+  // get theme color
+  var themeColors = {
+    bootstrap: {
+      primary: "rgba(51, 122, 183, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cerulean: {
+      primary: "rgb(47, 164, 231)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    journal: {
+      primary: "rgba(235, 104, 100, 0.70)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    flatly: {
+      primary: "rgba(44, 62, 80, 0.70)",
+      info: "rgba(52, 152, 219, 0.70)",
+      success: "rgba(24, 188, 156, 0.70)",
+      warning: "rgba(243, 156, 18, 0.70)",
+      danger: "rgba(231, 76, 60, 0.70)"
+    },
+    readable: {
+      primary: "rgba(69, 130, 236, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    spacelab: {
+      primary: "rgba(68, 110, 155, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    united: {
+      primary: "rgba(221, 72, 20, 0.30)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cosmo: {
+      primary: "rgba(39, 128, 227, 0.7)",
+      info: "rgba(153, 84, 187, 0.7)",
+      success: "rgba(63, 182, 24, 0.7)",
+      warning: "rgba(255, 117, 24, 0.7)",
+      danger: "rgba(255, 0, 57, 0.7)"
+    },
+    lumen: {
+      primary: "rgba(21, 140, 186, 0.70)",
+      info: "rgba(117, 202, 235, 0.90)",
+      success: "rgba(40, 182, 44, 0.70)",
+      warning: "rgba(255, 133, 27, 0.70)",
+      danger: "rgba(255, 65, 54, 0.70)"
+    },
+    paper: {
+      primary: "rgba(33, 150, 243, 0.35)",
+      info: "rgb(225, 190, 231)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(255, 224, 178)",
+      danger: "rgb(249, 189, 187)"
+    },
+    sandstone: {
+      primary: "rgba(50, 93, 136, 0.3)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    simplex: {
+      primary: "rgba(217, 35, 15, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    yeti: {
+      primary: "rgba(0, 140, 186, 0.298039)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    }
+  }
+  function themeColor(color) {
+    return themeColors[_options.theme][color];
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage,
+    themeColor: themeColor
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+    this.manageActiveNavbarMenu();
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  },
+  manageActiveNavbarMenu: function () {
+    // remove active from anyone currently active
+    $('.navbar ul.nav').find('li').removeClass('active');
+    // find the active tab
+    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
+    if (activeTab.length > 0) {
+      var tabId = activeTab.attr('id');
+      if (tabId)
+        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
+    }
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// plot image (figure style)
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// datatables
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.find('.datatables');
+  },
+  flex: function(fillPage) {
+    return fillPage;
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.append(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var iconSplit = chartIcon.split(" ");
+      if (iconSplit.length > 1) {
+        iconLib = iconSplit[0];
+        chartIcon = iconSplit.slice(1).join(" ");
+      } else {
+        var components = chartIcon.split("-");
+        if (components.length > 1)
+          iconLib = components[0];
+      }
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // set color based on data-background if necessary
+    var dataBackground = valueBox.attr('data-background');
+    if (dataBackground)
+      valueBox.css('background-color', bgColor);
+    else {
+      // default to bg-primary if no other background is specified
+      if (!valueBox.hasClass('bg-primary') &&
+          !valueBox.hasClass('bg-info') &&
+          !valueBox.hasClass('bg-warning') &&
+          !valueBox.hasClass('bg-success') &&
+          !valueBox.hasClass('bg-danger')) {
+        valueBox.addClass('bg-primary');
+      }
+    }
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // color
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        if (dataColor.indexOf('bg-') === 0) {
+          valueBox.css('background-color', '');
+          if (!valueBox.hasClass(dataColor)) {
+             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+             valueBox.addClass(dataColor);
+          }
+        } else {
+          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+          valueBox.css('background-color', dataColor);
+        }
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
+</script>
+
+<div id="dashboard-container">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-147616071-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-147616071-2');
+</script>
+<div id="section-visão-geral" class="section level1">
+<h1>Visão Geral</h1>
+<div id="section-column" class="section level2">
+<h2>Column</h2>
+<div id="section-introdução" class="section level4">
+<h4><strong>Introdução</strong></h4>
+<p>A Secretaria de Estado de Fazenda de Mato Grosso passa a publicar
+bimestralmente o Boletim Fiscal, em cumprimento à <strong>Lei de
+Diretriz Orçamentária (LDO)</strong>, com o objetivo de ampliar a
+transparência fiscal, avaliar o desempenho das receitas e dos gastos
+públicos e fomentar as discussões acerca das finanças públicas.</p>
+<p>O documento traz dados e análises sobre informações pertinentes às
+conjunturas econômica e fiscal do estado, além do monitoramento dos
+indicadores e metas fiscais que auxiliam o gerenciamento das contas
+públicas estaduais.</p>
+<p>Tem sido cada vez mais comum encontrar informações e análises sobre
+as receitas e despesas do governo na imprensa, nos discursos de
+políticos e autoridades, e até nas conversas do dia-a-dia. Em geral,
+comparam-se receitas e despesas, fala-se em superávit ou déficit,
+analisa-se o crescimento das despesas, a sua composição etc. Mas como as
+receitas e as despesas orçamentárias da União de fato se relacionam?</p>
+<p>Ou seja, o que pretendemos é responder, talvez de forma inédita, a
+seguinte pergunta: que receitas na prática financiam que despesas? Para
+isso, construímos uma visualização, agrupando as receitas e despesas em
+categorias, com o intuito de simplificar a extensa classificação
+orçamentária adotada no setor público brasileiro, e estimamos a relação
+entre cada uma dessas receitas e despesas. Os critérios técnicos
+adotados nesses agrupamentos estão descritos na seção de “Metodologia”,
+abaixo.</p>
+<p>Esse tipo de visualização pode ajudar a iluminar algumas questões que
+surgem com frequência a respeito da gestão de finanças públicas no
+Governo Federal, por exemplo:</p>
+<ul>
+<li><p>É verdade que recursos dos tributos (impostos, contribuições e
+taxas) são gastos para pagar os juros da dívida?</p></li>
+<li><p>Se há um déficit no Regime Geral de Previdência Social, como ele
+é financiado?</p></li>
+<li><p>Se o governo vem apresentando déficit nas contas, de onde vem o
+dinheiro para pagar suas despesas?</p></li>
+<li><p>O que é feito com o dinheiro obtido pelo governo com a emissão e
+venda de títulos públicos, tais como os do Tesouro Direto?</p></li>
+</ul>
+<p><strong>Como as receitas foram classificadas</strong></p>
+<p>Existem diversas formas possíveis de se agruparem as receitas
+orçamentárias. Para este exercício, procuramos destacar certos
+agrupamentos de receitas, tais como as emissões de títulos públicos, as
+receitas do INSS, as receitas de impostos etc.</p>
+<p>A classificação por natureza de receitas utiliza uma estrutura de
+codificação baseada num código numérico de 8 dígitos, em que as posições
+dos dígitos constituem classificadores intermediários, da seguinte
+forma:</p>
+<div class="figure">
+<img src="dashboard_master_files/./figures/MTO_nat_receita.PNG" alt="" />
+<p class="caption">Estrutura da Natureza de Receita. Fonte: MTO 2018</p>
+</div>
+<p>Para esta análise, as receitas foram agrupadas no seu terceiro nível,
+o nível de <em>Espécie</em>. Além disso, os recursos do Regime Geral de
+Previdência Social foram tratados de forma separada, por meio do
+classificador “unidade orçamentária”.</p>
+<p>Assim, as receitas foram agrupadas da seguinte forma:</p>
+<div class="figure">
+<img src="dashboard_master_files/./figures/agrupamento_receita.PNG" alt="" />
+<p class="caption">Classificação adotada para as receitas</p>
+</div>
+<p><strong>Como as despesas foram classificadas</strong></p>
+<p>Para as despesas, foi adotada uma classificação baseada naquela
+utiliza no capítulo “Estrutura do Gasto Público no Brasil”, de autoria
+de Mansueto Almeida, do livro “A Reforma Esquecida”, acrescentando-se as
+despesas da dívida pública e as transferências a estados e municípios.
+Essa classificação estabelece um recorte das despesas públicas da
+seguinte forma:</p>
+<div class="figure">
+<img src="dashboard_master_files/./figures/tabela-desp.PNG" alt="" />
+<p class="caption">Classificação adotada para as receitas</p>
+</div>
+</div>
+</div>
+</div>
+<div id="section-fluxo-de-despesa" class="section level1"
+data-navmenu="Visualizações">
+<h1>Fluxo de Despesa</h1>
+<div id="section-inputs" class="section level2 sidebar">
+<h2 class="sidebar">Inputs</h2>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="ano-label" for="ano">
+<h3>Selecione o Exercício:</h3>
+</label>
+<div>
+<select id="ano"><option value="2016">2016</option>
+<option value="2017">2017</option>
+<option value="2018">2018</option>
+<option value="2019">2019</option>
+<option value="2020">2020</option>
+<option value="2021">2021</option>
+<option value="2022">2022</option>
+<option value="2023" selected>2023</option></select>
+<script type="application/json" data-for="ano" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+</div>
+<div id="section-column-1" class="section level2">
+<h2>Column</h2>
+<div id="section-as-despesas-nas-funções-de-governo-em-milhão-r"
+class="section level3">
+<h3>As despesas nas funções de Governo em milhão R$</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div id="outf59057da0e592ef7" style="width:100%; height:400px; " class="collapsibleTree html-widget html-widget-output"></div></p>
+</div>
+</div>
+</div>
+<div id="section-fluxo-de-receita-e-despesa-loa-2021"
+class="section level1" data-navmenu="Visualizações">
+<h1>Fluxo de Receita e Despesa LOA 2021</h1>
+<div id="section-column-2" class="section level2" data-width="980">
+<h2>Column</h2>
+<div id="section-valores-em-milhão-r" class="section level3">
+<h3>Valores em milhão R$</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-deb3261367ae8e6e8bed" style="width:820px;height:620px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-deb3261367ae8e6e8bed">{"x":{"visdat":{"1a4446413ee":["function () ","plotlyVisDat"]},"cur_data":"1a4446413ee","attrs":{"1a4446413ee":{"orientation":"h","opacity":0.6,"textfont":{"family":"Open Sans","color":"#444444","size":12},"node":{"label":["Amortização de Empréstimos","Contribuições e outras receitas do RPPS","Contribuições Econômicas","Exploração de Recursos Naturais","Impostos","Operações de Crédito-Mercado Interno","Outras Receitas","Receita Agropecuária","Receita Industrial","Serviços e Atividades Referentes à Saúde","Taxas","Transferências da União e de suas Entidades","Transferências de Outras Instituições Públicas","Benefícios Previdenciários RPPS e Assistência Social","Custeio Administrativo","Custeio de Saúde","Custeio Social","Investimentos","Outras transferências","Pessoal","Amortização da Dívida","Custeio de Educação","Custeio Segurança Pública","Juros"],"color":["#8DD3C7","#1f476a","#BA3917","#FFFFB3","#BEBADA","#FB8072","#80B1D3","#FDB462","#B3DE69","#FCCDE5","#D9D9D9","#BC80BD","#CCEBC5","#1f476a","#E5F5E0","#C7E9C0","#A1D99B","#74C476","#41AB5D","#01665E","#BA3917","#00441B","#F7FCF5","#BA3917","#1f476a","#A1D99B","#74C476","#41AB5D","#238B45","#006D2C","#01665E","#BA3917","#E5F5E0","#C7E9C0","#BA3917","#1f476a","#41AB5D","#238B45","#006D2C","#00441B","#F7FCF5","#01665E","#BA3917","#A1D99B","#74C476","#BA3917","#1f476a","#006D2C","#00441B","#F7FCF5","#E5F5E0","#C7E9C0","#01665E","#BA3917","#41AB5D","#238B45","#BA3917","#1f476a","#F7FCF5","#E5F5E0","#C7E9C0","#A1D99B","#74C476","#01665E","#BA3917","#006D2C","#00441B","#BA3917","#1f476a","#C7E9C0","#A1D99B","#74C476","#41AB5D","#238B45","#01665E","#BA3917","#F7FCF5","#E5F5E0","#BA3917","#1f476a","#74C476","#41AB5D","#238B45","#006D2C","#00441B","#01665E","#BA3917","#C7E9C0","#A1D99B","#BA3917","#1f476a","#238B45","#006D2C","#00441B","#F7FCF5","#E5F5E0","#01665E","#BA3917","#74C476","#41AB5D","#BA3917","#1f476a","#00441B","#F7FCF5","#E5F5E0","#C7E9C0","#A1D99B","#01665E","#BA3917","#238B45","#006D2C","#BA3917"],"pad":10,"thickness":25,"line":{"color":"","width":0}},"hoverlabel":{"font":{"family":"Open Sans"}},"link":{"source":[0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,5,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,11,12,12,12,12],"target":[13,14,15,16,17,18,19,13,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,17,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,21,17,18,19],"value":[38635,510009,10057,42706,1433400,372340,365081,3410739757,94447607,105031642,452310762,4538206,7402977,19911105,34089811,1014416542,31054457,230436300,800239753,284,23267,1191432,4372,34,9150941,13,1969489,4924,1012,940150,802133400,702981529,1372093128,282176602,776166901,168528083,80602895,1973041650,263733223,656010395,6289242644,360971670,51108400,58443581,630770009,10751318,14347859,175148185,7309797,380192165,19266160,34471167,841280674,5466,6194,71040,531,92,20075,535,28584,2095,865,91712,38256,45287,582270,4081,645,166452,3741,224895,15064,6139,720962,10535,861830,37394714,161931,1269,11404884,467,10935350,182377,37490,34824138,839703,2621745,79437618,366413,59110,41196939,264058,33200636,637482,1791053,76999842,184193601,161012217,355384321,77582862,571444825,48447328,24650315,551164254,60560964,217319074,1341975991,251565834,121910735,60292192,2060840688],"color":["rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(31, 71, 106, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(251, 128, 114, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(204, 235, 197, 0.7)","rgba(204, 235, 197, 0.7)","rgba(204, 235, 197, 0.7)","rgba(204, 235, 197, 0.7)"]},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"sankey"}},"layout":{"width":820,"height":620,"margin":{"b":40,"l":60,"t":25,"r":10},"title":"","font":{"family":"Open Sans","size":11,"color":"#004a93"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"orientation":"h","opacity":0.6,"textfont":{"family":"Open Sans","color":"#444444","size":12},"node":{"label":["Amortização de Empréstimos","Contribuições e outras receitas do RPPS","Contribuições Econômicas","Exploração de Recursos Naturais","Impostos","Operações de Crédito-Mercado Interno","Outras Receitas","Receita Agropecuária","Receita Industrial","Serviços e Atividades Referentes à Saúde","Taxas","Transferências da União e de suas Entidades","Transferências de Outras Instituições Públicas","Benefícios Previdenciários RPPS e Assistência Social","Custeio Administrativo","Custeio de Saúde","Custeio Social","Investimentos","Outras transferências","Pessoal","Amortização da Dívida","Custeio de Educação","Custeio Segurança Pública","Juros"],"color":["#8DD3C7","#1f476a","#BA3917","#FFFFB3","#BEBADA","#FB8072","#80B1D3","#FDB462","#B3DE69","#FCCDE5","#D9D9D9","#BC80BD","#CCEBC5","#1f476a","#E5F5E0","#C7E9C0","#A1D99B","#74C476","#41AB5D","#01665E","#BA3917","#00441B","#F7FCF5","#BA3917","#1f476a","#A1D99B","#74C476","#41AB5D","#238B45","#006D2C","#01665E","#BA3917","#E5F5E0","#C7E9C0","#BA3917","#1f476a","#41AB5D","#238B45","#006D2C","#00441B","#F7FCF5","#01665E","#BA3917","#A1D99B","#74C476","#BA3917","#1f476a","#006D2C","#00441B","#F7FCF5","#E5F5E0","#C7E9C0","#01665E","#BA3917","#41AB5D","#238B45","#BA3917","#1f476a","#F7FCF5","#E5F5E0","#C7E9C0","#A1D99B","#74C476","#01665E","#BA3917","#006D2C","#00441B","#BA3917","#1f476a","#C7E9C0","#A1D99B","#74C476","#41AB5D","#238B45","#01665E","#BA3917","#F7FCF5","#E5F5E0","#BA3917","#1f476a","#74C476","#41AB5D","#238B45","#006D2C","#00441B","#01665E","#BA3917","#C7E9C0","#A1D99B","#BA3917","#1f476a","#238B45","#006D2C","#00441B","#F7FCF5","#E5F5E0","#01665E","#BA3917","#74C476","#41AB5D","#BA3917","#1f476a","#00441B","#F7FCF5","#E5F5E0","#C7E9C0","#A1D99B","#01665E","#BA3917","#238B45","#006D2C","#BA3917"],"pad":10,"thickness":25,"line":{"color":"","width":0}},"hoverlabel":{"font":{"family":"Open Sans"}},"link":{"source":[0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,5,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,11,12,12,12,12],"target":[13,14,15,16,17,18,19,13,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,17,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,20,13,14,21,15,22,16,17,23,18,19,21,17,18,19],"value":[38635,510009,10057,42706,1433400,372340,365081,3410739757,94447607,105031642,452310762,4538206,7402977,19911105,34089811,1014416542,31054457,230436300,800239753,284,23267,1191432,4372,34,9150941,13,1969489,4924,1012,940150,802133400,702981529,1372093128,282176602,776166901,168528083,80602895,1973041650,263733223,656010395,6289242644,360971670,51108400,58443581,630770009,10751318,14347859,175148185,7309797,380192165,19266160,34471167,841280674,5466,6194,71040,531,92,20075,535,28584,2095,865,91712,38256,45287,582270,4081,645,166452,3741,224895,15064,6139,720962,10535,861830,37394714,161931,1269,11404884,467,10935350,182377,37490,34824138,839703,2621745,79437618,366413,59110,41196939,264058,33200636,637482,1791053,76999842,184193601,161012217,355384321,77582862,571444825,48447328,24650315,551164254,60560964,217319074,1341975991,251565834,121910735,60292192,2060840688],"color":["rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(31, 71, 106, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(251, 128, 114, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(188, 128, 189, 0.7)","rgba(204, 235, 197, 0.7)","rgba(204, 235, 197, 0.7)","rgba(204, 235, 197, 0.7)","rgba(204, 235, 197, 0.7)"]},"type":"sankey","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="section-column-3" class="section level2 tabset">
+<h2 class="tabset">Column</h2>
+<div id="section-tabela-despesa" class="section level3">
+<h3>Tabela Despesa</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<table style="width:100%;">
+<colgroup>
+<col width="69%" />
+<col width="19%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Despesa por Função</th>
+<th align="right">Total</th>
+<th align="right">Part. %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Amortização da Dívida</td>
+<td align="right">1.132.777.252</td>
+<td align="right">3,96</td>
+</tr>
+<tr class="even">
+<td align="left">Benefícios Previdenciários RPPS e Assistência
+Social</td>
+<td align="right">4.441.805.684</td>
+<td align="right">15,53</td>
+</tr>
+<tr class="odd">
+<td align="left">Custeio Administrativo</td>
+<td align="right">2.929.745.303</td>
+<td align="right">10,25</td>
+</tr>
+<tr class="even">
+<td align="left">Custeio de Educação</td>
+<td align="right">627.152.150</td>
+<td align="right">2,19</td>
+</tr>
+<tr class="odd">
+<td align="left">Custeio de Saúde</td>
+<td align="right">1.369.433.769</td>
+<td align="right">4,79</td>
+</tr>
+<tr class="even">
+<td align="left">Custeio Segurança Pública</td>
+<td align="right">473.973.992</td>
+<td align="right">1,66</td>
+</tr>
+<tr class="odd">
+<td align="left">Custeio Social</td>
+<td align="right">146.964.338</td>
+<td align="right">0,51</td>
+</tr>
+<tr class="even">
+<td align="left">Investimentos</td>
+<td align="right">4.449.489.370</td>
+<td align="right">15,56</td>
+</tr>
+<tr class="odd">
+<td align="left">Juros</td>
+<td align="right">375.456.746</td>
+<td align="right">1,31</td>
+</tr>
+<tr class="even">
+<td align="left">Outras transferências</td>
+<td align="right">1.200.738.027</td>
+<td align="right">4,20</td>
+</tr>
+<tr class="odd">
+<td align="left">Pessoal</td>
+<td align="right">11.447.521.635</td>
+<td align="right">40,03</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="section-tabela-receita" class="section level3">
+<h3>Tabela Receita</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<table>
+<colgroup>
+<col width="67%" />
+<col width="21%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Receita por Espécie</th>
+<th align="right">Total</th>
+<th align="right">Part. %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Amortização de Empréstimos</td>
+<td align="right">2.772.230</td>
+<td align="right">0,01</td>
+</tr>
+<tr class="even">
+<td align="left">Contribuições e outras receitas do RPPS</td>
+<td align="right">3.410.739.756</td>
+<td align="right">11,93</td>
+</tr>
+<tr class="odd">
+<td align="left">Contribuições Econômicas</td>
+<td align="right">2.793.879.157</td>
+<td align="right">9,77</td>
+</tr>
+<tr class="even">
+<td align="left">Exploração de Recursos Naturais</td>
+<td align="right">13.285.917</td>
+<td align="right">0,05</td>
+</tr>
+<tr class="odd">
+<td align="left">Impostos</td>
+<td align="right">13.366.710.449</td>
+<td align="right">46,74</td>
+</tr>
+<tr class="even">
+<td align="left">Operações de Crédito-Mercado Interno</td>
+<td align="right">360.971.670</td>
+<td align="right">1,26</td>
+</tr>
+<tr class="odd">
+<td align="left">Outras Receitas</td>
+<td align="right">2.223.089.305</td>
+<td align="right">7,77</td>
+</tr>
+<tr class="even">
+<td align="left">Receita Agropecuária</td>
+<td align="right">227.190</td>
+<td align="right">0,00</td>
+</tr>
+<tr class="odd">
+<td align="left">Receita Industrial</td>
+<td align="right">1.807.793</td>
+<td align="right">0,01</td>
+</tr>
+<tr class="even">
+<td align="left">Serviços e Atividades Referentes à Saúde</td>
+<td align="right">95.814.986</td>
+<td align="right">0,34</td>
+</tr>
+<tr class="odd">
+<td align="left">Taxas</td>
+<td align="right">237.414.598</td>
+<td align="right">0,83</td>
+</tr>
+<tr class="even">
+<td align="left">Transferências da União e de suas Entidades</td>
+<td align="right">3.593.735.752</td>
+<td align="right">12,57</td>
+</tr>
+<tr class="odd">
+<td align="left">Transferências de Outras Instituições Públicas</td>
+<td align="right">2.494.609.449</td>
+<td align="right">8,72</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="section-fluxo-de-receita-e-despesa-da-loa-2023"
+class="section level1" data-navmenu="Visualizações">
+<h1>Fluxo de Receita e Despesa da LOA 2023</h1>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-6b9c7c2772e1e449f5ad" style="width:920px;height:720px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6b9c7c2772e1e449f5ad">{"x":{"visdat":{"1a444bdb2e9f":["function () ","plotlyVisDat"]},"cur_data":"1a444bdb2e9f","attrs":{"1a444bdb2e9f":{"orientation":"h","opacity":0.6,"textfont":{"family":"Open Sans","color":"#444444","size":12},"node":{"label":["Contribuição Militares","Contribuições ao Fethab","Contribuições ao Plano Financeiro e Previdenciário do RPPS","Contribuições Econômicas","Demais Receitas","Demais Transferências","ICMS","Impostos","IRRF","Taxas","Transferências da União e de suas Entidades","Pessoal e Encargos Sociais","Proteção Social dos Militares (SPSM)","Amortização da Dívida","Aprendizagem em foco","Custeio Poderes e Órgãos Autônomos","Custeio Segurança Pública","Custeio Social","Investimentos e Inversões Financeiras","Juros","Manutenção da Infraestrutura e logística","Modernização da gestão fiscal","Outras despesas correntes","Proteção e defesa do consumidor",null,"Previdência Social (RPPS)","Custeio de Saúde","Mato Grosso Mais Saúde","Promoção da cidadania e inclusão social","Custeio de Educação","Investimentos Poderes e Órgãos Autônomos","Reserva de Contingência"],"color":["#8DD3C7","#FFFFB3","#1f476a","#BA3917","#BEBADA","#FB8072","#80B1D3","#FDB462","#B3DE69","#FCCDE5","#D9D9D9","#01665E","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#1f476a","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#CAB2D6","#01665E","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#1f476a","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#E31A1C","#01665E","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#1f476a","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#B2DF8A","#01665E","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#1f476a","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#B15928","#01665E","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#1f476a","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#CAB2D6","#01665E","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#1f476a","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#E31A1C","#01665E","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#1f476a","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#B2DF8A","#01665E","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#1f476a","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#B15928","#01665E","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#1f476a","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#CAB2D6","#01665E","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#1f476a","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#E31A1C","#01665E","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#1f476a","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#B2DF8A","#01665E","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#1f476a","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#B15928"],"pad":10,"thickness":25,"line":{"color":"","width":0}},"hoverlabel":{"font":{"family":"Open Sans"}},"link":{"source":[0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10],"target":[11,12,13,14,15,16,17,18,19,20,21,22,11,23,24,15,18,22,11,25,13,14,26,15,16,17,18,19,20,27,21,22,11,28,23,24,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,23,12,31,13,14,29,15,16,17,18,30,19,20,21,22,11,28,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,12,31,24,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,12,31,24,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,12,31,13,14,26,15,16,17,18,30,19,20,21,22,11,23,24,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,12,31,24],"value":[349999,282992043,531390,9221267,7908424,289503958,75800,1938906287,718945,105550094,785303,261733975,203201157,2350172,null,741831,10737,547585,4000001,3980881264,37214,3499108,918901,3000933,30988408,28763,71542426,50350,13072,90971169,297988,38117642,65113283,29852914,891752,null,26074871,19638818,96217,328059,251508733,190556395,3179256,702020311,36234935,13046184,12343483,23569073,17563395,578173158,787262702,28192840,1531210,3394860,12529378,52206,175,47430499,2681000,127,35469,43085,220676770,144,161,89,56,3881180,2409177874,2969,571082591,207534129,47559167,27480904,623054518,111572315,67952245,677014897,77280943,243610245,121896945,655654732,21821887,857411420,6604615729,130734328,74264363,319729640,1332206,null,24707005,8982983,2058550,1189493,26955451,4826943,2659718,29863941,3343425,10539420,5273690,28379444,1582205,38577448,285203340,5656021,1551360,13832612,57636,null,81344840,146472828,33566163,3879069,88747716,15892325,8757055,137683134,11007874,34699774,17362961,92549196,2622708,121106091,1153651410,18621762,5107714,45542198,189759,9377,722444,22394,140435937,20874099,5937,23683774,19922475,12687,2694,61521,18395324,13567148,184110,null,157834537,232085920,12531656,9342839,172198391,46845864,20031923,375659807,21358710,67328461,39280244,475931240,5088869,293847477,1739715097,36132067,11394114,88366166,368192,null,0.00123525614151354,0.998764743858486,0.000188403743849909,0.0032693880033298,0.00280392192847999,0.102643403151968,2.68752041092218e-05,0.687436605989802,0.000254901399370393,0.0374226478964747,0.000278426625931463,0.0927974912288973,0.0720446883035037,0.00083324652428349,null,0.000186099909634093,2.69359442238319e-06,0.000137370669085023,0.00100346662371381,0.998670369203145,0.000110980341435708,0.0104349958591487,0.00274033384595921,0.00894935495061013,0.0924133662235932,8.57783301669552e-05,0.213353080933891,0.000150151179358211,3.89901500758887e-05,0.271292967248749,0.000888661940923653,0.113674806331755,0.194180087804658,0.0890269489473843,0.00265949591229083,null,0.00963132303260194,0.00725403192264552,3.5541117101748e-05,0.000121177457393138,0.0929002615149108,0.070386358475749,0.0011743850155659,0.259306605744203,0.0133841785280485,0.00481889418186646,0.00455933762510226,0.00870575016384541,0.00648742765552064,0.213561664999014,0.290792591142724,0.0104136360358601,0.000565586864758692,0.00125396650858778,0.00462799868664002,1.92833278610001e-05,6.57169237533444e-08,0.017672034574633,0.000998908457885882,4.83898631547592e-08,1.32151420561041e-05,1.60523533102291e-05,0.0822215244103571,5.44188307828854e-08,6.01138186759268e-08,3.35545600992349e-08,2.17017728549702e-08,0.00144612757013322,0.897630745564359,1.10635315203806e-06,0.0499128088721272,0.0181385554575916,0.00415668872149355,0.00240184000605442,0.0544551767073404,0.00975145830222999,0.00593905093618339,0.059171330952629,0.00675437967097109,0.0212916169949239,0.0106538322884413,0.0573044557624194,0.00190724012190614,0.0749380712432638,0.577245626218039,0.0114262241093322,0.00649073078923366,0.0279444775228083,0.000116435323011701,null,0.0498888054052129,0.0181385551390578,0.00415668864849732,0.00240184002434139,0.054428988779593,0.00974676874834565,0.00537069384330416,0.0603019091130886,0.00675113143604657,0.0212813776869058,0.0106487087757273,0.0573044561987203,0.00319484684471377,0.0778970530313626,0.575887467033765,0.011420729147246,0.00313256201450375,0.0279310388012293,0.000116379328338456,null,0.0402935688674569,0.0725542218747554,0.0166267548961465,0.0019214720039294,0.0439605276166305,0.00787214876377067,0.00433773509875606,0.0682003350388681,0.00545266973707034,0.0171882780206258,0.00860061644930524,0.0458435645881255,0.00129913981752492,0.0599889961132349,0.571452760925262,0.0092241522456468,0.00253006866445829,0.022558993472298,9.39958061345751e-05,3.94163918600753e-05,0.00303674394857344,9.41317472625722e-05,0.590313793351728,0.0877431528076182,2.49628105817463e-05,0.099553709340043,0.0837428468303363,5.33285232976531e-05,1.13467320826119e-05,0.000258614263757608,0.0773253152660587,0.0570286838590821,0.000773954127717673,null,0.041477096481144,0.0609895023298385,0.00329317591281689,0.00245519075840462,0.0452517634095602,0.0123105553253569,0.00526416721354573,0.0987190790250527,0.00561282892335059,0.017693142748197,0.0103223934000744,0.125069251725514,0.00133729895535505,0.0772197762315165,0.45717707669743,0.00949508974764589,0.00299424423192129,0.0232216101742158,9.67567090592327e-05,null],"color":["rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(31, 71, 106, 0.7)","rgba(31, 71, 106, 0.7)","rgba(31, 71, 106, 0.7)","rgba(31, 71, 106, 0.7)","rgba(31, 71, 106, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)"]},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"sankey"}},"layout":{"width":920,"height":720,"margin":{"b":40,"l":60,"t":25,"r":10},"title":"","font":{"family":"Open Sans","size":11,"color":"#004a93"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"orientation":"h","opacity":0.6,"textfont":{"family":"Open Sans","color":"#444444","size":12},"node":{"label":["Contribuição Militares","Contribuições ao Fethab","Contribuições ao Plano Financeiro e Previdenciário do RPPS","Contribuições Econômicas","Demais Receitas","Demais Transferências","ICMS","Impostos","IRRF","Taxas","Transferências da União e de suas Entidades","Pessoal e Encargos Sociais","Proteção Social dos Militares (SPSM)","Amortização da Dívida","Aprendizagem em foco","Custeio Poderes e Órgãos Autônomos","Custeio Segurança Pública","Custeio Social","Investimentos e Inversões Financeiras","Juros","Manutenção da Infraestrutura e logística","Modernização da gestão fiscal","Outras despesas correntes","Proteção e defesa do consumidor",null,"Previdência Social (RPPS)","Custeio de Saúde","Mato Grosso Mais Saúde","Promoção da cidadania e inclusão social","Custeio de Educação","Investimentos Poderes e Órgãos Autônomos","Reserva de Contingência"],"color":["#8DD3C7","#FFFFB3","#1f476a","#BA3917","#BEBADA","#FB8072","#80B1D3","#FDB462","#B3DE69","#FCCDE5","#D9D9D9","#01665E","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#1f476a","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#CAB2D6","#01665E","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#1f476a","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#E31A1C","#01665E","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#1f476a","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#B2DF8A","#01665E","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#1f476a","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#B15928","#01665E","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#1f476a","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#CAB2D6","#01665E","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#1f476a","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#E31A1C","#01665E","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#1f476a","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#B2DF8A","#01665E","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#1f476a","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#B15928","#01665E","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#1f476a","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#CAB2D6","#01665E","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#1f476a","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#E31A1C","#01665E","#FF7F00","#BA3917","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#BA3917","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#1f476a","#6A3D9A","#FFFF99","#B15928","#A6CEE3","#1F78B4","#B2DF8A","#01665E","#FB9A99","#BA3917","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#BA3917","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#1f476a","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#FFFF99","#B15928"],"pad":10,"thickness":25,"line":{"color":"","width":0}},"hoverlabel":{"font":{"family":"Open Sans"}},"link":{"source":[0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10],"target":[11,12,13,14,15,16,17,18,19,20,21,22,11,23,24,15,18,22,11,25,13,14,26,15,16,17,18,19,20,27,21,22,11,28,23,24,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,23,12,31,13,14,29,15,16,17,18,30,19,20,21,22,11,28,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,12,31,24,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,12,31,24,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,12,31,13,14,26,15,16,17,18,30,19,20,21,22,11,23,24,13,14,29,26,15,16,17,18,30,19,20,27,21,22,11,25,28,12,31,24],"value":[349999,282992043,531390,9221267,7908424,289503958,75800,1938906287,718945,105550094,785303,261733975,203201157,2350172,null,741831,10737,547585,4000001,3980881264,37214,3499108,918901,3000933,30988408,28763,71542426,50350,13072,90971169,297988,38117642,65113283,29852914,891752,null,26074871,19638818,96217,328059,251508733,190556395,3179256,702020311,36234935,13046184,12343483,23569073,17563395,578173158,787262702,28192840,1531210,3394860,12529378,52206,175,47430499,2681000,127,35469,43085,220676770,144,161,89,56,3881180,2409177874,2969,571082591,207534129,47559167,27480904,623054518,111572315,67952245,677014897,77280943,243610245,121896945,655654732,21821887,857411420,6604615729,130734328,74264363,319729640,1332206,null,24707005,8982983,2058550,1189493,26955451,4826943,2659718,29863941,3343425,10539420,5273690,28379444,1582205,38577448,285203340,5656021,1551360,13832612,57636,null,81344840,146472828,33566163,3879069,88747716,15892325,8757055,137683134,11007874,34699774,17362961,92549196,2622708,121106091,1153651410,18621762,5107714,45542198,189759,9377,722444,22394,140435937,20874099,5937,23683774,19922475,12687,2694,61521,18395324,13567148,184110,null,157834537,232085920,12531656,9342839,172198391,46845864,20031923,375659807,21358710,67328461,39280244,475931240,5088869,293847477,1739715097,36132067,11394114,88366166,368192,null,0.00123525614151354,0.998764743858486,0.000188403743849909,0.0032693880033298,0.00280392192847999,0.102643403151968,2.68752041092218e-05,0.687436605989802,0.000254901399370393,0.0374226478964747,0.000278426625931463,0.0927974912288973,0.0720446883035037,0.00083324652428349,null,0.000186099909634093,2.69359442238319e-06,0.000137370669085023,0.00100346662371381,0.998670369203145,0.000110980341435708,0.0104349958591487,0.00274033384595921,0.00894935495061013,0.0924133662235932,8.57783301669552e-05,0.213353080933891,0.000150151179358211,3.89901500758887e-05,0.271292967248749,0.000888661940923653,0.113674806331755,0.194180087804658,0.0890269489473843,0.00265949591229083,null,0.00963132303260194,0.00725403192264552,3.5541117101748e-05,0.000121177457393138,0.0929002615149108,0.070386358475749,0.0011743850155659,0.259306605744203,0.0133841785280485,0.00481889418186646,0.00455933762510226,0.00870575016384541,0.00648742765552064,0.213561664999014,0.290792591142724,0.0104136360358601,0.000565586864758692,0.00125396650858778,0.00462799868664002,1.92833278610001e-05,6.57169237533444e-08,0.017672034574633,0.000998908457885882,4.83898631547592e-08,1.32151420561041e-05,1.60523533102291e-05,0.0822215244103571,5.44188307828854e-08,6.01138186759268e-08,3.35545600992349e-08,2.17017728549702e-08,0.00144612757013322,0.897630745564359,1.10635315203806e-06,0.0499128088721272,0.0181385554575916,0.00415668872149355,0.00240184000605442,0.0544551767073404,0.00975145830222999,0.00593905093618339,0.059171330952629,0.00675437967097109,0.0212916169949239,0.0106538322884413,0.0573044557624194,0.00190724012190614,0.0749380712432638,0.577245626218039,0.0114262241093322,0.00649073078923366,0.0279444775228083,0.000116435323011701,null,0.0498888054052129,0.0181385551390578,0.00415668864849732,0.00240184002434139,0.054428988779593,0.00974676874834565,0.00537069384330416,0.0603019091130886,0.00675113143604657,0.0212813776869058,0.0106487087757273,0.0573044561987203,0.00319484684471377,0.0778970530313626,0.575887467033765,0.011420729147246,0.00313256201450375,0.0279310388012293,0.000116379328338456,null,0.0402935688674569,0.0725542218747554,0.0166267548961465,0.0019214720039294,0.0439605276166305,0.00787214876377067,0.00433773509875606,0.0682003350388681,0.00545266973707034,0.0171882780206258,0.00860061644930524,0.0458435645881255,0.00129913981752492,0.0599889961132349,0.571452760925262,0.0092241522456468,0.00253006866445829,0.022558993472298,9.39958061345751e-05,3.94163918600753e-05,0.00303674394857344,9.41317472625722e-05,0.590313793351728,0.0877431528076182,2.49628105817463e-05,0.099553709340043,0.0837428468303363,5.33285232976531e-05,1.13467320826119e-05,0.000258614263757608,0.0773253152660587,0.0570286838590821,0.000773954127717673,null,0.041477096481144,0.0609895023298385,0.00329317591281689,0.00245519075840462,0.0452517634095602,0.0123105553253569,0.00526416721354573,0.0987190790250527,0.00561282892335059,0.017693142748197,0.0103223934000744,0.125069251725514,0.00133729895535505,0.0772197762315165,0.45717707669743,0.00949508974764589,0.00299424423192129,0.0232216101742158,9.67567090592327e-05,null],"color":["rgba(141, 211, 199, 0.7)","rgba(141, 211, 199, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(255, 255, 179, 0.7)","rgba(31, 71, 106, 0.7)","rgba(31, 71, 106, 0.7)","rgba(31, 71, 106, 0.7)","rgba(31, 71, 106, 0.7)","rgba(31, 71, 106, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(186, 57, 23, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(190, 186, 218, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(251, 128, 114, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(128, 177, 211, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(253, 180, 98, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(179, 222, 105, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(252, 205, 229, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)","rgba(217, 217, 217, 0.7)"]},"type":"sankey","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="section-visão-da-loa-2023" class="section level1"
+data-navmenu="Visualizações">
+<h1>Visão da LOA 2023</h1>
+<div id="section-inputs-1" class="section level2 sidebar">
+<h2 class="sidebar">Inputs</h2>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="programa-label" for="programa">
+<h3>Selecione o Programa:</h3>
+</label>
+<div>
+<select id="programa"><option value="36 - Apoio administrativo" selected>36 - Apoio administrativo</option>
+<option value="372 - Gestão Legislativa">372 - Gestão Legislativa</option>
+<option value="996 - Operações especiais: outras">996 - Operações especiais: outras</option>
+<option value="997 - Previdência de inativos e pensionistas do Estado">997 - Previdência de inativos e pensionistas do Estado</option>
+<option value="146 - Fiscalização da gestão dos recursos públicos">146 - Fiscalização da gestão dos recursos públicos</option>
+<option value="399 - Aprimoramento da prestação jurisdicional no Poder Judiciário">399 - Aprimoramento da prestação jurisdicional no Poder Judiciário</option>
+<option value="400 - Gestão estratégica com pessoas no Poder Judiciário">400 - Gestão estratégica com pessoas no Poder Judiciário</option>
+<option value="401 - Governança e gestão para resultados no Poder Judiciário">401 - Governança e gestão para resultados no Poder Judiciário</option>
+<option value="529 - Aprimoramento do suporte e da gestão organizacional no Poder Judiciário">529 - Aprimoramento do suporte e da gestão organizacional no Poder Judiciário</option>
+<option value="507 - Articulação e interlocução política das ações institucionais">507 - Articulação e interlocução política das ações institucionais</option>
+<option value="508 - Gestão de riscos e desastres">508 - Gestão de riscos e desastres</option>
+<option value="518 - Regularização fundiária">518 - Regularização fundiária</option>
+<option value="517 - Regulação dos serviços públicos delegados">517 - Regulação dos serviços públicos delegados</option>
+<option value="998 - Operações especiais: cumprimento de sentenças judiciais">998 - Operações especiais: cumprimento de sentenças judiciais</option>
+<option value="504 - Parcerias, investimentos e participações">504 - Parcerias, investimentos e participações</option>
+<option value="505 - Controle para assegurar resultados">505 - Controle para assegurar resultados</option>
+<option value="264 - Gestão institucional">264 - Gestão institucional</option>
+<option value="287 - Defesa da cidadania e respeito aos direitos do cidadão">287 - Defesa da cidadania e respeito aos direitos do cidadão</option>
+<option value="374 - Defesa da Probidade Administrativa e do Patrimônio Público">374 - Defesa da Probidade Administrativa e do Patrimônio Público</option>
+<option value="375 - Defesa dos Direitos da Criança e do Adolescente">375 - Defesa dos Direitos da Criança e do Adolescente</option>
+<option value="376 - Efetividade da Legislação Penal">376 - Efetividade da Legislação Penal</option>
+<option value="530 - Defesa do meio ambiente natural e urbano">530 - Defesa do meio ambiente natural e urbano</option>
+<option value="510 - Promoção da defesa do Estado">510 - Promoção da defesa do Estado</option>
+<option value="405 - Defesa da cidadania e inclusão social por meio do acesso à Justiça">405 - Defesa da cidadania e inclusão social por meio do acesso à Justiça</option>
+<option value="356 - Governo digital">356 - Governo digital</option>
+<option value="501 - Gestão de aquisições, patrimônio, serviços e documentos">501 - Gestão de aquisições, patrimônio, serviços e documentos</option>
+<option value="516 - Reestruturação do Mato Grosso Saúde">516 - Reestruturação do Mato Grosso Saúde</option>
+<option value="525 - Desenvolve e inova MTPREV">525 - Desenvolve e inova MTPREV</option>
+<option value="515 - Sustentabilidade empresarial da MTI">515 - Sustentabilidade empresarial da MTI</option>
+<option value="994 - Operações especiais: serviços da dívida interna">994 - Operações especiais: serviços da dívida interna</option>
+<option value="500 - Gestão de políticas públicas">500 - Gestão de políticas públicas</option>
+<option value="502 - Gestão estratégica de pessoas para resultados">502 - Gestão estratégica de pessoas para resultados</option>
+<option value="382 - Agricultura familiar inclusiva e sustentável">382 - Agricultura familiar inclusiva e sustentável</option>
+<option value="527 - Aprendizagem em foco">527 - Aprendizagem em foco</option>
+<option value="511 - Modernização da gestão fiscal">511 - Modernização da gestão fiscal</option>
+<option value="385 - Mato Grosso Maior e Melhor">385 - Mato Grosso Maior e Melhor</option>
+<option value="214 - Defesa sanitária vegetal">214 - Defesa sanitária vegetal</option>
+<option value="216 - Defesa sanitária animal">216 - Defesa sanitária animal</option>
+<option value="393 - Promoção da conservação ambiental para melhoria da qualidade de vida">393 - Promoção da conservação ambiental para melhoria da qualidade de vida</option>
+<option value="526 - Mato Grosso Mais Saúde">526 - Mato Grosso Mais Saúde</option>
+<option value="509 - Política de gestão penitenciária para reinserção social">509 - Política de gestão penitenciária para reinserção social</option>
+<option value="519 - Segurança proativa e inteligente">519 - Segurança proativa e inteligente</option>
+<option value="520 - Sistema de atendimento socioeducativo - MT">520 - Sistema de atendimento socioeducativo - MT</option>
+<option value="524 - Salvar e proteger">524 - Salvar e proteger</option>
+<option value="531 - Tolerância Zero">531 - Tolerância Zero</option>
+<option value="506 - Compromisso com o trânsito seguro">506 - Compromisso com o trânsito seguro</option>
+<option value="512 - Promoção da cidadania, segurança alimentar e inclusão social">512 - Promoção da cidadania, segurança alimentar e inclusão social</option>
+<option value="513 - Programa estadual de direitos humanos">513 - Programa estadual de direitos humanos</option>
+<option value="522 - Proteção social e fortalecimento do Sistema Único de Assistência Social - SUAS">522 - Proteção social e fortalecimento do Sistema Único de Assistência Social - SUAS</option>
+<option value="411 - Proteção e defesa do consumidor">411 - Proteção e defesa do consumidor</option>
+<option value="523 - Ampliação do acesso à cultura">523 - Ampliação do acesso à cultura</option>
+<option value="532 - Desenvolvimento da Economia Criativa">532 - Desenvolvimento da Economia Criativa</option>
+<option value="521 - Ampliação do acesso ao esporte e lazer">521 - Ampliação do acesso ao esporte e lazer</option>
+<option value="338 - Infraestrutura e logística">338 - Infraestrutura e logística</option>
+<option value="514 - Parcerias e concessões">514 - Parcerias e concessões</option>
+<option value="339 - Desenvolvimento científico, tecnológico e de inovação">339 - Desenvolvimento científico, tecnológico e de inovação</option>
+<option value="345 - Desenvolvimento da educação profissional e superior">345 - Desenvolvimento da educação profissional e superior</option>
+<option value="528 - Consolidação da educação superior para desenvolvimento do estado de Mato Grosso">528 - Consolidação da educação superior para desenvolvimento do estado de Mato Grosso</option>
+<option value="995 - Operações especiais: serviços da dívida externa">995 - Operações especiais: serviços da dívida externa</option>
+<option value="999 - Reserva de contingência">999 - Reserva de contingência</option></select>
+<script type="application/json" data-for="programa" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+</div>
+<div id="section-column-4" class="section level2">
+<h2>Column</h2>
+<div id="section-fontes-de-financiamento-e-programas"
+class="section level3">
+<h3>Fontes de Financiamento e Programas</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div id="out7282c1d48c0cdecd" style="width:100%; height:400px; " class="collapsibleTree html-widget html-widget-output"></div></p>
+</div>
+</div>
+</div>
+<div id="section-visão-grupo-loa-2023" class="section level1"
+data-navmenu="Visualizações">
+<h1>Visão Grupo LOA 2023</h1>
+<div id="section-column-5" class="section level2">
+<h2>Column</h2>
+<div id="section-despesa-por-grupo" class="section level3">
+<h3>Despesa por Grupo</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-5a4fd08b30c01655422f" style="width:1280px;height:1280px;" class="collapsibleTree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5a4fd08b30c01655422f">{"x":{"data":{"name":"Destinação dos Recursos no PLOA 2023","fill":"#D33F6A","WeightOfNode":"30,815","children":[{"name":"RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","fill":"#D33F6A","WeightOfNode":"19,593","children":[{"name":"PESSOAL E ENCARGOS SOCIAIS","fill":"#D33F6A","WeightOfNode":"10,992"},{"name":"OUTRAS DESPESAS CORRENTES","fill":"#E8952F","WeightOfNode":"5,184"},{"name":"INVESTIMENTOS","fill":"#E8C742","WeightOfNode":"2,170"},{"name":"AMORTIZACAO DA DIVIDA","fill":"#E4DD6B","WeightOfNode":"862"},{"name":"JUROS E ENCARGOS DA DIVIDA","fill":"#E2E37C","WeightOfNode":"370"},{"name":"INVERSOES FINANCEIRAS","fill":"#E2E6BD","WeightOfNode":"12.4"},{"name":"RESERVA DE CONTINGENCIA","fill":"#E2E6BD","WeightOfNode":"2"}]},{"name":"RECURSOS VINCULADOS À PREVIDÊNCIA SOCIAL - FTE (800 A 803)","fill":"#E9BE35","WeightOfNode":"4,313","children":[{"name":"PESSOAL E ENCARGOS SOCIAIS","fill":"#D33F6A","WeightOfNode":"4,291"},{"name":"OUTRAS DESPESAS CORRENTES","fill":"#E2E6BD","WeightOfNode":"21.1"},{"name":"INVESTIMENTOS","fill":"#E2E6BD","WeightOfNode":"0.4"}]},{"name":"DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","fill":"#E7CB46","WeightOfNode":"3,168","children":[{"name":"INVESTIMENTOS","fill":"#D33F6A","WeightOfNode":"1,696"},{"name":"OUTRAS DESPESAS CORRENTES","fill":"#E78839","WeightOfNode":"960"},{"name":"PESSOAL E ENCARGOS SOCIAIS","fill":"#E9B72E","WeightOfNode":"498"},{"name":"INVERSOES FINANCEIRAS","fill":"#E2E6BD","WeightOfNode":"14.2"}]},{"name":"RECURSOS VINCULADOS À EDUCAÇÃO - FTE (540 A 599)","fill":"#E7CB46","WeightOfNode":"2,973","children":[{"name":"PESSOAL E ENCARGOS SOCIAIS","fill":"#D33F6A","WeightOfNode":"2,447"},{"name":"INVESTIMENTOS","fill":"#E7CE4C","WeightOfNode":"281"},{"name":"OUTRAS DESPESAS CORRENTES","fill":"#E6D151","WeightOfNode":"245"}]},{"name":"RECURSOS VINCULADOS À SAUDE - FTE (600 A 659)","fill":"#E2E37C","WeightOfNode":"473","children":[{"name":"OUTRAS DESPESAS CORRENTES","fill":"#D33F6A","WeightOfNode":"452"},{"name":"INVESTIMENTOS","fill":"#E4DD6B","WeightOfNode":"20.3"}]},{"name":"DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","fill":"#E2E688","WeightOfNode":"259","children":[{"name":"INVESTIMENTOS","fill":"#D33F6A","WeightOfNode":"147"},{"name":"OUTRAS DESPESAS CORRENTES","fill":"#DB585C","WeightOfNode":"112"}]},{"name":"RECURSOS VINCULADOS À ASSISTÊNCIA SOCIAL - FTE (660 A 669)","fill":"#E2E6BD","WeightOfNode":"36.7","children":[{"name":"OUTRAS DESPESAS CORRENTES","fill":"#D33F6A","WeightOfNode":"31.4"},{"name":"INVESTIMENTOS","fill":"#E9BE35","WeightOfNode":"5.25"}]}]},"options":{"hierarchy":["descricao_pai","descricao_filho"],"input":null,"attribute":"Teto Orçamentário","linkLength":null,"fontSize":16,"tooltip":true,"collapsed":true,"zoomable":true,"margin":{"top":20,"bottom":20,"left":313,"right":233}}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="section-mapas" class="section level1">
+<h1>Mapas</h1>
+<div id="section-column-6" class="section level2">
+<h2>Column</h2>
+<div id="section-mapa-do-investimento-nas-regiões"
+class="section level3">
+<h3><strong>Mapa do Investimento nas Regiões</strong></h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div id="out533991223c9fea8f" style="width:100%; height:400px; " class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme"></div></p>
+</div>
+</div>
+</div>
+<div id="section-dados-investimentos" class="section level1">
+<h1>Dados Investimentos</h1>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="section-column-7" class="section level2">
+<h2>Column</h2>
+<div id="section-unidade-orçamentária-e-fonte-de-recurso"
+class="section level3">
+<h3><strong>Unidade Orçamentária e Fonte de Recurso</strong></h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-267da45d1804c0f6c338" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-267da45d1804c0f6c338">{"x":{"filter":"bottom","filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"1000\" data-max=\"1198264901\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","extensions":["Buttons"],"fillContainer":true,"data":[["01101 - AL/MT","01303 - ISSSPL","02101 - TCE/MT","03101 - TJ/MT","03601 - FUNAJURIS","04101 - CASA CIVIL","04101 - CASA CIVIL","04102 - GOVERNADORIA","04301 - AGER/MT","04301 - AGER/MT","04304 - INTERMAT","04501 - MT-PAR","04501 - MT-PAR","06101 - CGE/MT","08101 - PGJ/MT","08601 - FUNAMP","09101 - PGE/MT","10101 - DEFENSORIA","11101 - SEPLAG/MT","11303 - MT-SAÚDE","11305 - MTPREV","11401 - MTI","11601 - FUNDESP/MT","12101 - SEAF","12101 - SEAF","12101 - SEAF","12401 - EMPAER/MT","13101 - SECOM","14101 - SEDUC","14101 - SEDUC","16101 - SEFAZ","16101 - SEFAZ","17101 - SEDEC","17101 - SEDEC","17301 - JUCEMAT","17303 - INDEA/ MT","17501 - METAMAT","17501 - METAMAT","17502 - MT-GÁS","17601 - FUNDES","19101 - SESP","19101 - SESP","19101 - SESP","19201 - FUNAC","19301 - DETRAN/ MT","19301 - DETRAN/ MT","19301 - DETRAN/ MT","21601 - FES","21601 - FES","21601 - FES","22101 - SETASC","22101 - SETASC","22101 - SETASC","22101 - SETASC","22605 - FEAT","22607 - FEAS","22608 - FUNDECON  ","23101 - SECEL","23101 - SECEL","23601 - FUNDED/ MT","25101 - SINFRA","25101 - SINFRA","25101 - SINFRA","26101 - SECITECI","26101 - SECITECI","26201 - UNEMAT","26202 - FAPEMAT","26202 - FAPEMAT","27101 - SEMA","27101 - SEMA","30102 - EGE/SEFAZ"],["RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS VINCULADOS À PREVIDÊNCIA SOCIAL - FTE (800 A 803)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS VINCULADOS À EDUCAÇÃO - FTE (540 A 599)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS VINCULADOS À SAUDE - FTE (600 A 659)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS VINCULADOS À ASSISTÊNCIA SOCIAL - FTE (660 A 669)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","RECURSOS VINCULADOS À ASSISTÊNCIA SOCIAL - FTE (660 A 669)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)","DEMAIS VINCULAÇÕES DECORRENTES DE TRANSFERÊNCIAS - FTE (700 A 749)","DEMAIS VINCULAÇÕES LEGAIS - FTE (750 A 799)","RECURSOS LIVRES (NÃO VINCULADOS) - FTE (500 A 501)"],[35000004,30000,11229448,20000,50294000,300000,1051000,1000000,861741,160125,21932735,217235300,150000,5594304,6477891,1000,14886044,66096248,20100000,160000,400000,12047449,3173973,7296054,14130948,17142376,2742011,200004,146745620,280935690,87429443,55766500,20950961,14292013,585848,1000000,4155836,4808562,80000,14382168,42055739,34837588,53566004,50000,1138317,842159,40356215,2216998,315248841,20349211,500000,500004,34240000,5205385,344004,46605,15893725,150000,6850000,3009997,64444267,1198264901,1123773944,39206,8238455,7720400,1172220,33645975,3507208,3023799,157470432]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>UO<\/th>\n      <th>Fonte<\/th>\n      <th>Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \".\", \",\");\n  }"},{"className":"dt-right","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"single","selected":null,"target":"row","selectable":null}},"evals":["options.columnDefs.0.render"],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="section-column-8" class="section level2">
+<h2>Column</h2>
+<div id="section-dados-por-região-de-planejamento"
+class="section level3">
+<h3><strong>Dados por Região de Planejamento</strong></h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-31d1ec10aaf80ba51bc1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-31d1ec10aaf80ba51bc1">{"x":{"filter":"bottom","filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"67430590\" data-max=\"1564176683\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"1.56105701915293\" data-max=\"36.2115916558419\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","extensions":["Buttons"],"fillContainer":true,"data":[["0100-REGIÃO I - NOROESTE I","0200-REGIÃO II - NORTE","0300-REGIÃO III - NORDESTE","0400-REGIÃO IV - LESTE","0500-REGIÃO V - SUDESTE","0600-REGIÃO VI - SUL","0700-REGIÃO VII - SUDOESTE","0800-REGIÃO VIII - OESTE","0900-REGIÃO IX - CENTRO OESTE","1000-REGIÃO X - CENTRO","1100-REGIÃO XI - NOROESTE II","1200-REGIÃO XII - CENTRO NORTE","9900-ESTADO"],[211349595,390743797,176433032,204176118,254513840,1564176683,214097205,216426238,116577921,184134736,67430590,163067805,556419335],[4.8928649262876,9.0459440885408,4.08452637021319,4.72679479961983,5.89214207385055,36.2115916558419,4.9564736812517,5.01039213743737,2.69884605570418,4.26282525635134,1.56105701915293,3.77511366270281,12.8814282730458]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>Região<\/th>\n      <th>Total<\/th>\n      <th>Part. %<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"single","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+
+$(document).ready(function () {
+
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
+});
+</script>
+
+<div id="flexdashboard-source-code">
+<pre class="line-numbers"><code class="language-r">---
+title: "Painel"
+output: 
+  flexdashboard::flex_dashboard:
+    #theme: cerulean
+    orientation: columns
+    vertical_layout: fill
+    social: menu
+    source_code: embed
+    navbar: 
+    - {title: "UEPF/SAOR/SEFAZ", href: "http://www5.sefaz.mt.gov.br/-/14586954-boletim-fiscal", align: right}
+    logo: ./figures/logo.png
+    favicon: ./figures/favicon.PNG
+runtime: shiny
+
+---
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-147616071-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-147616071-2');
+</script>
+
+
+```{r setup, include=FALSE}
+
+# get local format
+
+library(flexdashboard)
+library(networkD3)
+library(shiny)
+library(readxl)
+library(ggplot2)
+library(openxlsx)# pacote para ler arquivo de excel
+library(dplyr)
+library(networkD3)
+library(plotly)
+library(viridis)
+library(stringr)
+library(readr)
+library(Cairo)
+library(ggrepel)
+library(colorspace)
+library(cluster)
+library(tidyr)
+library(stringr)
+library(collapsibleTree)
+library(knitr)
+library(tidyverse)
+library(flexdashboard)
+library(leaflet)
+library(lubridate)
+library(DT)
+library(gridExtra)
+library(leafpop)
+library(sf)
+library(DataExplorer)
+#novas libraries
+library(purrr)
+
+
+options(shiny.usecairo=T)
+
+# ler os dados de exercução da despesa das LOA's e prevista de 2023.
+
+dados <- read_excel("./dados/Despesa_funcao.xlsx", sheet = 3) 
+
+dados <- dados[, c("Exercício","Descrição Função", "Descrição Subfunção", "Empenhado", "raiz")] 
+names(dados)<- c("Ano","descricao_cofog_pai","descricao_cofog", "total_gasto", "raiz")
+
+dados_completo <- dados %>% group_by(Ano, descricao_cofog_pai, descricao_cofog, 
+                                 total_gasto, raiz)%>%
+  summarize(total_gasto = sum(total_gasto))%>%filter(total_gasto > 0.00)
+  
+```
+
+
+# Visão Geral
+
+
+
+## Column  
+
+
+#### **Introdução**
+
+A Secretaria de Estado de Fazenda de Mato Grosso passa a publicar bimestralmente o Boletim Fiscal, em cumprimento à **Lei de Diretriz Orçamentária (LDO)**, com o objetivo de ampliar a transparência fiscal, avaliar o desempenho das receitas e dos gastos públicos e  fomentar as discussões acerca das finanças públicas.   
+
+O documento traz dados e análises sobre informações pertinentes às conjunturas econômica e fiscal do estado, além do monitoramento dos indicadores e metas fiscais que auxiliam o gerenciamento das contas públicas estaduais.  
+
+Tem sido cada vez mais comum encontrar informações e análises sobre as receitas e despesas do governo na imprensa, nos discursos de políticos e autoridades, e até nas conversas do dia-a-dia. Em geral, comparam-se receitas e despesas, fala-se em superávit ou déficit, analisa-se o crescimento das despesas, a sua composição etc. Mas como as receitas e as despesas orçamentárias da União de fato se relacionam?
+
+Ou seja, o que pretendemos é responder, talvez de forma inédita, a seguinte pergunta: que receitas na prática financiam que despesas? Para isso, construímos uma visualização, agrupando as receitas e despesas em categorias, com o intuito de simplificar a extensa classificação orçamentária adotada no setor público brasileiro, e estimamos a relação entre cada uma dessas receitas e despesas. Os critérios técnicos adotados nesses agrupamentos estão descritos na seção de “Metodologia”, abaixo.
+
+Esse tipo de visualização pode ajudar a iluminar algumas questões que surgem com frequência a respeito da gestão de finanças públicas no Governo Federal, por exemplo:
+
+- É verdade que recursos dos tributos (impostos, contribuições e taxas) são gastos para pagar os juros da dívida?
+
+- Se há um déficit no Regime Geral de Previdência Social, como ele é financiado?
+
+- Se o governo vem apresentando déficit nas contas, de onde vem o dinheiro para pagar suas despesas?
+
+- O que é feito com o dinheiro obtido pelo governo com a emissão e venda de títulos públicos, tais como os do Tesouro Direto?
+
+**Como as receitas foram classificadas**          
+
+Existem diversas formas possíveis de se agruparem as receitas orçamentárias. Para este exercício, procuramos destacar certos agrupamentos de receitas, tais como as emissões de títulos públicos, as receitas do INSS, as receitas de impostos etc. 
+
+A classificação por natureza de receitas utiliza uma estrutura de codificação baseada num código numérico de 8 dígitos, em que as posições dos dígitos constituem classificadores intermediários, da seguinte forma:          
+
+![Estrutura da Natureza de Receita. Fonte: MTO 2018](./figures/MTO_nat_receita.PNG)         
+
+
+Para esta análise, as receitas foram agrupadas no seu terceiro nível, o nível de *Espécie*. Além disso, os recursos do Regime Geral de Previdência Social foram tratados de forma separada, por meio do classificador "unidade orçamentária".
+
+Assim, as receitas foram agrupadas da seguinte forma:        
+
+![Classificação adotada para as receitas](./figures/agrupamento_receita.PNG)  
+
+
+**Como as despesas foram classificadas**  
+
+Para as despesas, foi adotada uma classificação baseada naquela utiliza no capítulo "Estrutura do Gasto Público no Brasil", de autoria de Mansueto Almeida, do livro "A Reforma Esquecida", acrescentando-se as despesas da dívida pública e as transferências a estados e municípios. Essa classificação estabelece um recorte das despesas públicas da seguinte forma:  
+
+![Classificação adotada para as receitas](./figures/tabela-desp.PNG)
+
+
+
+# Fluxo de Despesa {data-navmenu="Visualizações"}
+
+
+Inputs {.sidebar}
+------------------------------------------------------------------------
+```{r}
+# Série dos anos da base de dados "dados_completo"
+
+ano <- unique(dados_completo$Ano)
+```
+
+
+```{r}
+# Definindo o imput no shiny para filtrar o ano
+
+
+selectInput("ano",label = h3("Selecione o Exercício:"),
+            choices = ano, selected = max(ano) )
+
+
+```
+
+
+## Column 
+
+### As despesas nas funções de Governo em milhão R$ 
+
+
+
+
+```{r}
+# Tratar os dados para criar o fluxogra da despesa estilo arvore
+
+renderCollapsibleTree({
+
+dados_tree = dados_completo[,c("Ano", "descricao_cofog_pai", 
+                               "descricao_cofog", "raiz",
+                               "total_gasto")] %>% filter(Ano == input$ano) %>%
+  group_by(descricao_cofog_pai, descricao_cofog) %>%
+  summarise(total = sum(total_gasto))
+
+dados_tree%>%
+  mutate(`Total gasto` = total /10^6) %>%
+  collapsibleTreeSummary(
+    hierarchy = c("descricao_cofog_pai", "descricao_cofog"),
+    root = 'Gastos com funções de governo',
+    width = 960,
+    height = 720,
+    attribute = "Total gasto",
+    fontSize = 14,
+    #nodeSize = "total_norm",
+    zoomable = TRUE
+  )
+
+})
+
+
+
+```
+
+
+
+# Fluxo de Receita e Despesa LOA 2021 {data-navmenu="Visualizações"}
+ 
+## Column {data-width=980}
+
+### Valores em milhão R$
+
+
+```{r}
+
+rec <- read_excel("./dados/Receita.xlsx", sheet = 1, col_names = TRUE)
+des <- read_excel("./dados/Despesa.xlsx", sheet = 1, col_names = TRUE)
+
+names(rec) <- c("nr", "fte", "fte_nome", "rec")
+names(des) <- c("fte", "fte_nome", "nd", "des")
+
+rec <- rec %>%
+  group_by(nr) %>%
+  mutate(rec = rec,  #/1000000
+         subtot_rec = sum(rec),
+         per_rec_fte = rec/sum(rec)) # calcula os % de distrib. de cada rec nas ftes
+
+des <- des %>%
+  group_by(fte) %>%
+  mutate(des = des, #/1000000
+         per_fte_des = des/sum(des)) # calcula os % de distrib. de fte nas desps
+
+
+
+# tenho uma lista de fontes
+
+matriz <- rec %>%
+  full_join(des, by = "fte") # pelo código da fonte, pq vai que o nome da fonte muda...
+
+# calcula o % de dist. de cada rec nas desps
+# calcula então o tamanho de cada link, partir do subtotal de cada receita. ignorando se for menor que um bilhao
+### a fazer: remover as linhas com um anti_join, para não contaminar a informação do hoover (outgoing, ingoing count)
+
+matriz <- matriz %>% 
+  mutate(p = per_rec_fte * per_fte_des, 
+         # ramo = ifelse((round(subtot_rec * p,0)<1000000000),0,round(subtot_rec * p,0))) %>%
+         ramo = round(subtot_rec * p,0)) %>% 
+  group_by(nr,nd) %>%                        
+  summarise(p = sum(p),
+            ramo = sum(ramo)) %>%
+  select(nr,nd,p,ramo)
+
+# limpeza
+
+tamanho_critico <- 1e1 
+ramos_a_limpar <- matriz %>% filter(ramo<tamanho_critico) #fazer no shiny
+
+matriz_original <- matriz
+
+matriz <- matriz %>%
+  anti_join(ramos_a_limpar)
+
+# relacao unica dos rotulos de receita e despesa:
+rotulos <- c(unique(matriz$nr),unique(matriz$nd))
+
+# conta os nós e gera sequencia numerica a partir de zero
+num_nos <- length(rotulos)
+nos <- 0:(num_nos-1)
+
+# cria tabelinha para numerar os nos
+tab_aux <- data.frame(rotulos, nos)
+
+# incorpora os números dos nodes na matriz, para a receita... e para a despesa.
+matriz <- matriz %>%
+  left_join(tab_aux, by = c("nr" = "rotulos")) %>%   
+  left_join(tab_aux, by = c("nd" = "rotulos"), suffix = c("_rec","_desp"))
+
+
+
+# DEFINIÇÕES DAS CORES
+library(RColorBrewer)
+
+azul_STN <- "#1f476a"
+cor_divida_transluc <- "rgba(186, 57, 23, 0.7)"
+cor_RPPS_transluc <- "rgba(31, 71, 106, 0.7)"
+cor_divida <- "#BA3917"
+cor_RPPS <- azul_STN
+cor_Pessoal <- "#01665E"
+
+nclr = 9
+#pclr <- brewer.pal(nclr, "Greens")#[5:9]# " tons de cores començando em 4 até 9"
+cor_padrao_despesas <- c(brewer.pal(nclr, "Greens"))
+
+
+
+qde_rec_destacadas <- 1
+qde_cores_extras <- length(unique(matriz$nr)) - qde_rec_destacadas
+
+paleta_STN <- brewer.pal(qde_cores_extras, "Set3")
+#paleta_STN <- c("#F8AC08","#CEC806","#96C11E","#028063","#149339","#4E857E","#6E287C")
+
+paleta_STN_rgb <- col2rgb(paleta_STN)
+
+# essa função gera uma matriz com os componentes RGB.
+# precisamos fornecer as cores no formato "rgb(r,g,b)"
+# além disso, para os ramos, é interessante que as cores sejam translúcidas, 
+# então vamos acrescentar um componente de transparência
+
+paleta_STN_transluc <- NULL
+for (i in 1:dim(paleta_STN_rgb)[2] ) {
+  paleta_STN_transluc <- c(paleta_STN_transluc, paste("rgba(", paleta_STN_rgb[1,i],", ",  paleta_STN_rgb[2,i],", ",  paleta_STN_rgb[3,i],", 0.7)", sep = ""))
+}
+
+# rotininha para povoar as cores dos ramos e dos nos, conforme as receitas
+
+receitas <- unique(matriz$nr)
+
+cores_ramos <- NULL
+cores_nos <- NULL
+k = 1
+
+for (i in 1:length(receitas)) {
+  if (receitas[i] == "Contribuições e outras receitas do RPPS") {
+    cores_ramos <- c(cores_ramos, cor_RPPS_transluc)
+    cores_nos <- c(cores_nos, cor_RPPS)
+  }
+  else if (receitas[i] == "Contribuições Econômicas") {
+    cores_ramos <- c(cores_ramos, cor_divida_transluc)
+    cores_nos <- c(cores_nos, cor_divida)
+  }
+  else {
+    cores_ramos <- c(cores_ramos, paleta_STN_transluc[k])
+    cores_nos <- c(cores_nos, paleta_STN[k])
+    k <- k + 1 # o certo seria fazer algo modular, caso sejam mais receitas que cores
+  }
+}
+
+## povoando as cores das despesas... (com um método mais elegante do que um loop)
+despesas <- unique(matriz$nd)
+cores_despesas <- rep(cor_padrao_despesas, length(despesas))
+
+cores_despesas[despesas == "Amortização da Dívida" | despesas == "Juros"] <- cor_divida
+
+cores_despesas[despesas == "Benefícios Previdenciários RPPS e Assistência Social"] <- cor_RPPS
+
+cores_despesas[despesas == "Pessoal"] <- cor_Pessoal
+
+## fechando a lista de cores dos nos
+
+cores_nos <- c(cores_nos, cores_despesas)
+
+## tabelinha para usar de referência no preenchimento da matriz
+
+tabelinha_cores_ramos <- data.frame(receitas, cores_ramos)
+
+## preenchendo as cores dos ramos na matriz a partir dessa tabelinha
+
+matriz <- matriz %>%
+  left_join(tabelinha_cores_ramos, by = c("nr" = "receitas"))
+
+## sem dívida
+
+# qual o numero do no de juros
+no_juros <- unique(matriz$nos_desp[which(matriz$nd=="Juros")])
+
+# qual o numero do no de amortização da dívida
+no_amort <- unique(matriz$nos_desp[which(matriz$nd=="Amortização da Dívida")])
+
+matriz_semdivida <- matriz %>%
+  mutate(nd = replace(nd, nd=="Juros", "Dívida"),
+         nd = replace(nd, nd=="Amortização da Dívida", "Dívida"),
+         nos_desp = replace(nos_desp, nd=="Dívida", min(no_juros,no_amort))) %>%
+  #filter(!(nr == "Emissões de títulos" & nd == "Dívida")) %>% # atenção a esse filtro!
+  group_by(nr,nd,nos_rec,nos_desp,cores_ramos)%>%
+  summarize(p = sum(p),
+            ramo = sum(ramo))
+
+rotulos_divida <- c(unique(matriz_semdivida$nr),unique(matriz_semdivida$nd))
+
+
+
+
+# DIAGRAMA
+
+library(plotly)
+
+# os textos do hover estão hardcoded no plotly. Então, em plotly-latest.min.js,
+# que está na instalação do R, R\win-library\3.4\plotly\htmlwidgets\lib\plotlyjs,
+# substituí "Incoming Flow Count", "Outgoing Flow Count", "Source:" e "Target:"
+# pelas expressões que eu quis.
+
+
+p <- function(dados,nomes){
+  plot_ly(
+    type = "sankey",
+    orientation = "h",
+    width = 820,
+    height = 620,
+    opacity = 0.6, 
+    # será q isso controla a opacidade dos hovers? # nope, é hardcoded,
+    #valueformat = ">-.3~g",
+    #valuesuffix = " bilhões de reais",
+    
+    textfont = list(
+      family = "Open Sans",
+      color = "#444444",
+      size = 12
+    ),
+    
+    node = list(
+      label = nomes,
+      color = cores_nos,
+      pad = 10,
+      thickness = 25,
+      line = list(
+        color = "",
+        width = 0
+      )
+    ),
+    
+    hoverlabel = list(
+      font = list(
+        family = "Open Sans"
+      )
+    ),
+    
+    link = list(
+      source = dados$nos_rec,
+      target = dados$nos_desp,
+      value =  dados$ramo,
+      color = dados$cores_ramos
+      #color =  "rgba(255,213,0,0.4)" 
+      # para deixar a cor translucida, é preciso usar rgba
+      
+    )
+  ) %>% 
+    layout(
+      title = "",
+      font = list(
+        family = "Open Sans",
+        size = 11,
+        color = "#004a93"
+      )
+    )
+}
+
+# versão completa
+
+p(matriz, rotulos)
+
+
+
+```
+
+
+## Column {.tabset }
+
+### Tabela Despesa 
+```{r}
+despesa = matriz%>%
+  group_by(nd)%>% 
+  summarise(Total = sum(ramo)) %>% 
+  mutate(perc_total = (Total/sum(Total))*100)
+
+names(despesa)<- c("Despesa por Função","Total", "Part. %")
+
+#renderTable({ d = despesa })
+knitr::kable(despesa,  digits = 2, format.args = list( decimal.mark = ",", big.mark = ".")) 
+
+```
+
+
+
+### Tabela Receita
+```{r}
+receita = rec%>% group_by(nr)%>% 
+  summarise(Receitas = sum(rec)) %>% 
+  mutate(perc_total = (Receitas/sum(Receitas))*100)
+
+names(receita)<- c("Receita por Espécie","Total", "Part. %")
+#renderTable({ r = receita }) 
+
+knitr::kable(receita, digits = 2, format.args = list( decimal.mark = ",", big.mark = ".")) 
+
+ 
+```
+
+
+# Fluxo de Receita e Despesa da LOA 2023 {data-navmenu="Visualizações"}
+
+```{r}
+library(readxl)
+library(tidyverse)
+
+rec_LOA <- read_excel("./dados/Receita.xlsx", sheet = 4, col_names = TRUE)
+
+rec_LOA <- rec_LOA[,c("Especie", "FTE", "FTE_DESCRICAO", "LOA_2023")]
+
+names(rec_LOA) <- c("nr", "fte", "fte_nome", "rec")
+
+des_LOA <- read_excel("./dados/Despesa.xlsx", sheet = 2, col_names = TRUE)
+des_LOA <- des_LOA[,c("FTE", "DESCRICAO_FTE", "agrupamento","Valor PTA")]
+names(des_LOA) <- c("fte", "fte_nome", "nd", "des")
+
+rec_LOA <- rec_LOA %>%
+  group_by(nr) %>%
+  mutate(rec = rec,  #/1000000
+         subtot_rec = sum(rec),
+         per_rec_fte = rec/sum(rec)) # calcula os % de distrib. de cada rec nas ftes
+
+des_LOA <- des_LOA %>%
+  group_by(fte) %>%
+  mutate(des = des, #/1000000
+         per_fte_des = des/sum(des)) # calcula os % de distrib. de fte nas desps
+
+
+
+# tenho uma lista de fontes
+
+matriz_LOA <- rec_LOA %>%
+  full_join(des_LOA, by = "fte") # pelo código da fonte, pq vai que o nome da fonte muda...
+
+# calcula o % de dist. de cada rec nas desps
+# calcula então o tamanho de cada link, partir do subtotal de cada receita. ignorando se for menor que um bilhao
+### a fazer: remover as linhas com um anti_join, para não contaminar a informação do hoover (outgoing, ingoing count)
+
+matriz_LOA <- matriz_LOA %>% 
+  mutate(p = per_rec_fte * per_fte_des, 
+         # ramo = ifelse((round(subtot_rec * p,0)<1000000000),0,round(subtot_rec * p,0))) %>%
+         ramo = round(subtot_rec * p,0)) %>% 
+  group_by(nr,nd) %>%                        
+  summarise(p = sum(p),
+            ramo = sum(ramo)) %>%
+  select(nr,nd,p,ramo)
+
+# limpeza
+
+tamanho_critico <- 1e1 
+ramos_a_limpar <- matriz_LOA %>% filter(ramo<tamanho_critico) #fazer no shiny
+
+matriz_original <- matriz_LOA
+
+matriz_LOA <- matriz_LOA %>%
+  anti_join(ramos_a_limpar)
+
+# relacao unica dos rotulos de receita e despesa:
+rotulos_LOA <- c(unique(matriz_LOA$nr),unique(matriz_LOA$nd))
+
+# conta os nós e gera sequencia numerica a partir de zero
+num_nos <- length(rotulos_LOA)
+nos <- 0:(num_nos-1)
+
+# cria tabelinha para numerar os nos
+tab_aux_LOA <- data.frame(rotulos_LOA, nos)
+
+# incorpora os números dos nodes na matriz, para a receita... e para a despesa.
+matriz_LOA <- matriz_LOA %>%
+  left_join(tab_aux_LOA, by = c("nr" = "rotulos_LOA")) %>%   
+  left_join(tab_aux_LOA, by = c("nd" = "rotulos_LOA"), suffix = c("_rec","_desp"))
+
+
+
+# DEFINIÇÕES DAS CORES
+library(RColorBrewer)
+
+azul_STN <- "#1f476a"
+cor_divida_transluc <- "rgba(186, 57, 23, 0.7)"
+cor_RPPS_transluc <- "rgba(31, 71, 106, 0.7)"
+cor_divida <- "#BA3917"
+cor_RPPS <- azul_STN
+cor_Pessoal <- "#01665E"
+
+nclr = 12
+#pclr <- brewer.pal(nclr, "Greens")#[5:9]# " tons de cores començando em 4 até 9"
+cor_padrao_despesas <- c(brewer.pal(nclr, "Paired"))
+
+
+
+qde_rec_destacadas <- 1
+qde_cores_extras <- length(unique(matriz_LOA$nr)) - qde_rec_destacadas
+
+paleta_STN <- brewer.pal(qde_cores_extras, "Set3")
+#paleta_STN <- c("#F8AC08","#CEC806","#96C11E","#028063","#149339","#4E857E","#6E287C")
+
+paleta_STN_rgb <- col2rgb(paleta_STN)
+
+# essa função gera uma matriz com os componentes RGB.
+# precisamos fornecer as cores no formato "rgb(r,g,b)"
+# além disso, para os ramos, é interessante que as cores sejam translúcidas, 
+# então vamos acrescentar um componente de transparência
+
+paleta_STN_transluc <- NULL
+for (i in 1:dim(paleta_STN_rgb)[2] ) {
+  paleta_STN_transluc <- c(paleta_STN_transluc, paste("rgba(", paleta_STN_rgb[1,i],", ",  paleta_STN_rgb[2,i],", ",  paleta_STN_rgb[3,i],", 0.7)", sep = ""))
+}
+
+# rotininha para povoar as cores dos ramos e dos nos, conforme as receitas
+
+receitas_LOA <- unique(matriz_LOA$nr)
+
+cores_ramos <- NULL
+cores_nos <- NULL
+k = 1
+
+for (i in 1:length(receitas_LOA)) {
+  if (receitas_LOA[i] == "Contribuições ao Plano Financeiro e Previdenciário do RPPS") {
+    cores_ramos <- c(cores_ramos, cor_RPPS_transluc)
+    cores_nos <- c(cores_nos, cor_RPPS)
+  }
+  else if (receitas_LOA[i] == "Contribuições Econômicas") {
+    cores_ramos <- c(cores_ramos, cor_divida_transluc)
+    cores_nos <- c(cores_nos, cor_divida)
+  }
+  else {
+    cores_ramos <- c(cores_ramos, paleta_STN_transluc[k])
+    cores_nos <- c(cores_nos, paleta_STN[k])
+    k <- k + 1 # o certo seria fazer algo modular, caso sejam mais receitas que cores
+  }
+}
+
+## povoando as cores das despesas... (com um método mais elegante do que um loop)
+despesas_LOA <- unique(matriz_LOA$nd)
+cores_despesas <- rep(cor_padrao_despesas, length(despesas_LOA))
+
+cores_despesas[despesas_LOA == "Amortização da Dívida" | despesas_LOA == "Juros"] <- cor_divida
+
+cores_despesas[despesas_LOA == "Previdência Social (RPPS)"] <- cor_RPPS
+
+cores_despesas[despesas_LOA == "Pessoal e Encargos Sociais"] <- cor_Pessoal
+
+## fechando a lista de cores dos nos
+
+cores_nos <- c(cores_nos, cores_despesas)
+
+## tabelinha para usar de referência no preenchimento da matriz
+
+tabelinha_cores_ramos <- data.frame(receitas_LOA, cores_ramos)
+
+## preenchendo as cores dos ramos na matriz a partir dessa tabelinha
+
+matriz_LOA <- matriz_LOA %>%
+  left_join(tabelinha_cores_ramos, by = c("nr" = "receitas_LOA"))
+
+## sem dívida
+
+# qual o numero do no de juros
+no_juros <- unique(matriz_LOA$nos_desp[which(matriz_LOA$nd=="Juros")])
+
+# qual o numero do no de amortização da dívida
+no_amort <- unique(matriz_LOA$nos_desp[which(matriz_LOA$nd=="Amortização da Dívida")])
+
+matriz_semdivida <- matriz_LOA %>%
+  mutate(nd = replace(nd, nd=="Juros", "Dívida"),
+         nd = replace(nd, nd=="Amortização da Dívida", "Dívida"),
+         nos_desp = replace(nos_desp, nd=="Dívida", min(no_juros,no_amort))) %>%
+  #filter(!(nr == "Emissões de títulos" & nd == "Dívida")) %>% # atenção a esse filtro!
+  group_by(nr,nd,nos_rec,nos_desp,cores_ramos)%>%
+  summarize(p = sum(p),
+            ramo = sum(ramo))
+
+rotulos_divida <- c(unique(matriz_semdivida$nr),unique(matriz_semdivida$nd))
+
+
+
+
+# DIAGRAMA
+
+library(plotly)
+
+# os textos do hover estão hardcoded no plotly. Então, em plotly-latest.min.js,
+# que está na instalação do R, R\win-library\3.4\plotly\htmlwidgets\lib\plotlyjs,
+# substituí "Incoming Flow Count", "Outgoing Flow Count", "Source:" e "Target:"
+# pelas expressões que eu quis.
+
+
+f <- function(dados,nomes){
+  plot_ly(
+    type = "sankey",
+    orientation = "h",
+    width = 920,
+    height = 720,
+    opacity = 0.6, 
+    # será q isso controla a opacidade dos hovers? # nope, é hardcoded,
+    #valueformat = ">-.3~g",
+    #valuesuffix = " bilhões de reais",
+    
+    textfont = list(
+      family = "Open Sans",
+      color = "#444444",
+      size = 12
+    ),
+    
+    node = list(
+      label = nomes,
+      color = cores_nos,
+      pad = 10,
+      thickness = 25,
+      line = list(
+        color = "",
+        width = 0
+      )
+    ),
+    
+    hoverlabel = list(
+      font = list(
+        family = "Open Sans"
+      )
+    ),
+    
+    link = list(
+      source = dados$nos_rec,
+      target = dados$nos_desp,
+      value =  c(dados$ramo,dados$p),
+      color = dados$cores_ramos
+      #color =  "rgba(255,213,0,0.4)" 
+      # para deixar a cor translucida, é preciso usar rgba
+      
+    )
+  ) %>% 
+    layout(
+      title = "",
+      font = list(
+        family = "Open Sans",
+        size = 11,
+        color = "#004a93"
+      )
+    )
+}
+
+# versão completa
+
+f(matriz_LOA, rotulos_LOA)
+
+
+
+# https://plotly-r.com/preface.html
+# https://www.tesourotransparente.gov.br/historias/fluxo-de-receitas-e-despesas
+# https://plotly.com/python/sankey-diagram/
+
+# https://github.com/plotly/plotly.js/blob/d971001a04273334d858930957fa86ebb0952e71/lib/locales/pt-br.js
+# https://stackoverflow.com/questions/72957392/edit-boxplot-tooltip-text-plotly
+
+
+```
+
+
+
+# Visão da LOA 2023 {data-navmenu="Visualizações"}
+
+Inputs {.sidebar}
+------------------------------------------------------------------------
+```{r}
+dados_LOA <- read_excel("./dados/Despesa.xlsx", sheet = 2)
+programa <- unique(dados_LOA$`Prog. Governo`)
+#head(dados_LOA)
+```
+
+
+```{r}
+# shiny inputs defined here
+
+selectInput("programa",label = h3("Selecione o Programa:"),
+            choices = programa, selected = programa[[1]] )
+
+```
+
+## Column 
+
+
+### Fontes de Financiamento e Programas
+
+
+```{r}
+dados_LOA <- dados_LOA[, c("DESCRICAO_RECURSO",  "Prog. Governo","Ação (PAOE)","Cat.Econ","DESCRICAO_GRUPO","Valor PTA","raiz")] 
+names(dados_LOA)<- c("descricao_pai","descricao_filho", "descricao_filha","descricao_neto", "descricao_bisneto","total_teto", "raiz")
+
+```
+
+
+
+```{r}
+library(collapsibleTree)
+
+renderCollapsibleTree({
+  
+dados_LOA = dados_LOA[,c("descricao_pai","descricao_filho", "descricao_filha","descricao_neto", "descricao_bisneto","total_teto", "raiz")] %>% 
+  group_by(descricao_pai, descricao_filho, descricao_filha,descricao_neto, descricao_bisneto) %>%
+  summarise(total = sum(total_teto))
+
+dados_LOA%>% filter(descricao_filho == input$programa) %>%
+  mutate(`LOA-2023` = total /10^6) %>%
+  collapsibleTreeSummary(
+    hierarchy = c("descricao_pai", "descricao_filha", "descricao_bisneto"),
+    root = paste0('Orçamento LOA 2023'),
+    width = 1280,# LARGURA
+    height = 1280,# ALTURA
+    attribute = "LOA-2023",
+    fontSize = 12,
+    tooltip = TRUE,
+    fillFun = colorspace::heat_hcl, 
+    maxPercent = 50,
+    #nodeSize = "total_norm",
+    zoomable = TRUE
+  )
+
+})
+
+```
+
+
+# Visão Grupo LOA 2023 {data-navmenu="Visualizações"}
+
+## Column 
+
+### Despesa por Grupo
+
+```{r}
+
+dados_grupo <- read_excel("./dados/Despesa.xlsx", sheet = 4)
+
+dados_grupo <- dados_grupo[, c("DESCRICAO_RECURSO", "Grupo_DESCRICAO", "Teto","raiz")] 
+names(dados_grupo)<- c("descricao_pai","descricao_filho", "total_teto", "raiz")
+
+
+
+#names(dados_tree)<- c("Ano","descricao_cofog_pai","descricao_cofog", "total_gasto", "raiz")
+
+
+library(collapsibleTree)
+
+dados_grupo = dados_grupo[,c("descricao_pai","descricao_filho", "total_teto", "raiz")] %>% 
+  group_by(descricao_pai, descricao_filho) %>%
+  summarise(total = sum(total_teto))
+
+dados_grupo%>%
+  mutate(`Teto Orçamentário` = total /10^6) %>%
+  collapsibleTreeSummary(
+    hierarchy = c("descricao_pai", "descricao_filho"),
+    root = paste0('Destinação dos Recursos no PLOA 2023'),
+    width = 1280,# LARGURA
+    height = 1280,# ALTURA
+    attribute = "Teto Orçamentário",
+    fontSize = 16,
+    tooltip = TRUE,
+    fillFun = colorspace::heat_hcl, 
+    maxPercent = 50,
+    #nodeSize = "total_norm",
+    zoomable = TRUE
+  )
+
+```
+
+
+
+# Mapas
+
+
+
+## Column 
+### **Mapa do Investimento nas Regiões**
+
+```{r}
+
+
+mt_regiao <- read_sf('./shape/Regiões_de_planejamento.shp')
+dados_mt<- read.xlsx("./dados/Despesa.xlsx", sheet="Região II")
+names(dados_mt) <- c("regiao",	"sigla_regiao",	"NUMERO")
+
+regiao_mt <- mt_regiao %>% merge(dados_mt, by="NUMERO")
+dados_mt <- dados_mt %>% merge(mt_regiao, by="NUMERO")
+
+dados_loa<- read.xlsx("./dados/Despesa.xlsx", sheet=2)
+
+dados_loa <- dados_loa[,c("regiao","DESCRICAO_RECURSO","COD_GRUPO","Valor.PTA")] 
+
+names(dados_loa) <- c("regiao","DESCRICAO_RECURSO","COD_GRUPO","valor_pta") 
+
+dados_loa <- dados_loa%>% filter(regiao != '9900-ESTADO' & COD_GRUPO == 4) %>% 
+  group_by(regiao) %>%
+  summarise(total = sum(valor_pta))
+
+#quantile(dados_loa$total)
+# Setting population density classes
+dados_loa$FAIXA <- cut(dados_loa$total,breaks=c(0,
+                                        67430590,
+                                        116577921,
+                                        163067805,
+                                        176433032,
+                                        184134736,
+                                        204176118,
+                                        211349595,
+                                        214097205,
+                                        216426238,
+                                        254513840,
+                                        390743797,
+                                        1564176683), 
+                       labels=c("67,4 milhões", 
+                                "116,5 milhões", 
+                                "163 milhões", 
+                                "176,4 milhões", 
+                                "184,1 milhões", 
+                                "204,176 milhões", 
+                                "211,2 milhões", 
+                                "214 milhões", 
+                                "216,4 milhões", 
+                                "254,5 milhões", 
+                                "390,7 milhões", 
+                                "1,56 bilhão"))
+
+
+
+mt_mun<- dados_loa  %>% merge(dados_mt, by = "regiao")
+
+
+pclr = c("#1B9E77", "#D95F02", "#7570B3","#A50F15", "#67000D", "#66A61E","#9ECAE1", "#4292C6", "#08519C", "#08306B", "#2171B5", "#08306B")
+
+
+# dfinir os nomes das microrregições 
+points <- cbind(mt_mun, st_coordinates(st_centroid(mt_mun$geometry)))
+
+
+
+
+renderPlotly({
+  
+
+  
+  # Plotting
+ggplot(data=mt_mun, aes(geometry = geometry))+
+    # definir faixas e divisão administrativa dos municípios
+    geom_sf(aes(fill=factor(FAIXA)),color=alpha("grey",0.4),data=mt_mun)+
+    labs(x = NULL, y=NULL, fill= 'Faixa Investimento')+
+    # faixa das regiões
+    geom_sf(fill='transparent',color='black',data=mt_mun)+
+    # nomes das municípios
+    geom_text(data= points,aes(x=X, y=Y, label=NOMEREGIAO),
+              color = "Black", fontface = "bold", check_overlap = FALSE, size = 1.9)+
+    
+    # escala munual das cores  
+    #scale_fill_manual(values = pclr) +
+    # formação do título e das legendas
+    ggtitle(" ", 
+            subtitle = ' ')+
+    labs(caption=c('Fonte: SEFAZ, 2023'))+
+    # retira o sistema cartesiano: tipo de layout do mapa padrão
+    theme(panel.grid = element_line(colour = "transparent"),
+          panel.background = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank())
+  
+})
+```
+
+# Dados Investimentos
+
+```{r}
+dados_loa<- read.xlsx("./dados/Despesa.xlsx", sheet=2)
+
+dados_loa <- dados_loa[,c("U.O","regiao","DESCRICAO_RECURSO","COD_GRUPO","Valor.PTA")] 
+
+names(dados_loa) <- c("UO","Regiao","Fonte","Grupo","Valor") 
+
+
+```
+
+## Column
+### **Unidade Orçamentária e Fonte de Recurso**
+
+```{r}
+dados_UO <- dados_loa%>% filter(Grupo == 4) %>% 
+  group_by(UO, Fonte) %>%
+  summarise(Total = sum(Valor)) 
+
+library(DT)
+datatable(dados_UO,
+  extensions = 'Buttons',
+  selection = 'single', ## enable selection of a single row
+  filter = 'bottom',              ## include column filters at the bottom
+  rownames = FALSE                ## don't show row numbers/names
+)%>% formatRound('Total', mark = ".",dec.mark = ",",digits = 2)
+
+```
+
+
+## Column
+### **Dados por Região de Planejamento**
+
+
+```{r}
+dados_regiao <- dados_loa%>% filter(Grupo == 4) %>% 
+  group_by(Regiao) %>%
+  summarise(Total = sum(Valor)) %>% 
+  mutate(perc_TOTAL = (Total/sum(Total))*100)
+
+library(DT)
+datatable(dados_regiao,
+
+  extensions = 'Buttons',
+  selection = 'single', ## enable selection of a single row
+  filter = 'bottom',              ## include column filters at the bottom
+  rownames = FALSE  ,              ## don't show row numbers/names
+  colnames = c("Região", "Total", "Part. %"),
+  
+) 
+
+```
+
+</code></pre>
+</div>
+<script type="text/javascript">
+$(document).ready(function () {
+  FlexDashboard.init({
+    theme: "cosmo",
+    fillPage: true,
+    orientation: "columns",
+    storyboard: false,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460,
+    resize_reload: true
+  });
+});
+</script>
+
+</body>
+</html>
